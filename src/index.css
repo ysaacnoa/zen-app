@@ -1,0 +1,47 @@
+* {
+  transition: all 0.5s ease-out;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Variables para el fondo de mesh */
+  --mesh-color-primary: rgb(30, 0, 255);
+  --mesh-color-teal: rgb(255, 72, 173);
+  --mesh-color-purple: rgb(140, 0, 215);
+  --mesh-blur-intensity: 90px;
+  --mesh-opacity-50: 0.5;
+  --mesh-animation-duration: 10s;
+
+  /* Variables para el fondo de motes */
+  --motes-color-primary: rgb(5, 124, 172);
+  --motes-color-secondary: rgb(199, 10, 114);
+  --motes-color-teal: rgba(47, 247, 202, 0.3);
+  --motes-color-yellow: rgba(245, 207, 82, 0.6);
+  --motes-color-green: rgba(183, 253, 52, 0.5);
+  --motes-color-red: rgba(199, 10, 52, 0.6);
+  --motes-blur-intensity: 80px;
+  --motes-animation-duration-down: 40s;
+  --motes-animation-duration-up: 30s;
+  --motes-animation-duration-left: 30s;
+  --motes-animation-duration-right: 30s;
+
+  /* Variables para el fondo de burbujas */
+  --bubbles-color-bg1: rgb(108, 0, 162);
+  --bubbles-color-bg2: rgb(0, 17, 82);
+  --bubbles-color1: 18, 113, 255;
+  --bubbles-color2: 221, 74, 255;
+  --bubbles-color3: 100, 220, 255;
+  --bubbles-color4: 200, 50, 50;
+  --bubbles-color5: 180, 180, 50;
+  --bubbles-color-interactive: 140, 100, 255;
+  --bubbles-circle-size: 80%;
+  --bubbles-blending: hard-light;
+}
