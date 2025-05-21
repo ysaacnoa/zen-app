@@ -3,12 +3,14 @@
     <!-- Hero Section -->
     <div class="hero-section">
       <div class="glass-card hero-content">
-        <h1 class="text-6xl font-bold mb-6 text-white">Zen-App</h1>
-        <p class="text-2xl mb-10 text-gray-200">
-          Transforma tu rutina, encuentra tu equilibrio
+        <h1>
+          Encuentra tu <span class="gradient-text">paz interior</span>
+        </h1>
+        <p>
+          Zen-App te guía en un viaje de mindfulness y hábitos saludables para reducir el estrés y mejorar tu bienestar diario.
         </p>
-        <Button size="lg" class="px-10 py-6 text-lg">
-          Comenzar el viaje
+        <Button class="cta-button">
+          Empieza ahora
         </Button>
       </div>
     </div>
@@ -19,28 +21,37 @@
       <div class="features-grid">
         <Card class="glass-card feature-card">
           <CardHeader>
-            <CardTitle class="text-center">Reducción de estrés</CardTitle>
+            <div class="emoji">🧘‍♂️</div>
+            <CardTitle>
+              Reducción de estrés
+            </CardTitle>
           </CardHeader>
           <CardContent>
-            <p>Técnicas probadas para calmar tu mente</p>
+            <p>Aprende técnicas de respiración, meditación guiada y mindfulness para reducir el estrés diario y encontrar calma interior.</p>
           </CardContent>
         </Card>
 
         <Card class="glass-card feature-card">
           <CardHeader>
-            <CardTitle class="text-center">Hábitos saludables</CardTitle>
+            <div class="emoji">🌿</div>
+            <CardTitle>
+              Hábitos saludables
+            </CardTitle>
           </CardHeader>
           <CardContent>
-            <p>Rutinas para mejorar tu bienestar</p>
+            <p>Descubre rutinas diarias para mejorar tu sueño, alimentación y actividad física, diseñadas para tu bienestar integral.</p>
           </CardContent>
         </Card>
 
         <Card class="glass-card feature-card">
           <CardHeader>
-            <CardTitle class="text-center">Seguimiento personal</CardTitle>
+            <div class="emoji">📊</div>
+            <CardTitle>
+              Seguimiento personal
+            </CardTitle>
           </CardHeader>
           <CardContent>
-            <p>Monitoriza tu progreso</p>
+            <p>Registra tu progreso, establece metas y recibe insights personalizados para mantener tu motivación y crecimiento continuo.</p>
           </CardContent>
         </Card>
       </div>
