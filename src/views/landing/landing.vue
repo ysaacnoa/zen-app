@@ -9,9 +9,21 @@
         <p>
           Zen-App te guía en un viaje de mindfulness y hábitos saludables para reducir el estrés y mejorar tu bienestar diario.
         </p>
-        <Button class="cta-button">
-          Empieza ahora
-        </Button>
+        <Dialog>
+          <DialogTrigger as-child>
+            <Button class="cta-button">
+              Empieza ahora
+            </Button>
+          </DialogTrigger>
+          <DialogContent class="max-w-2xl">
+            <DialogHeader>
+              <DialogTitle>Evaluación GAD-7</DialogTitle>
+              <DialogDescription>
+              </DialogDescription>
+            </DialogHeader>
+            <GAD7Form />
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
 
@@ -56,16 +68,27 @@
         </Card>
       </div>
     </div>
+
   </div>
 </template>
 
 <script setup lang="ts">
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from '@/components/ui/dialog'
+import GAD7Form from './GAD7Form.vue'
 
 defineOptions({
   name: 'LandingPage'
 })
+
 </script>
 
 
