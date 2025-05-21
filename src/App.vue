@@ -8,11 +8,11 @@
     <!-- Main Content -->
     <div class="app-content">
       <LandingPage v-if="!isAppStarted" @start-app="isAppStarted = true" />
-      <div v-else>
-        <BackgroundSelector
-          v-model="selectedBackground"
-          :options="backgroundOptions"
-        />
+      <BackgroundSelector
+        v-model="selectedBackground"
+        :options="backgroundOptions"
+      />
+      <div v-if="isAppStarted">
         <!-- Main App Content Would Go Here -->
       </div>
     </div>

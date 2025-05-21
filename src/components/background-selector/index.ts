@@ -1,1 +1,1 @@
-export {default} from './background-selector.css';
+export {default} from './background-selector.vue';
