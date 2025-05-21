@@ -1,12 +1,21 @@
 <template>
-  <select v-model="selectedBackground">
-    <option v-for="(background, index) in backgroundOptions" :key="index" :value="background">
-      {{ background }}
-    </option>
-  </select>
+  <div class="app-container">
+    <!-- Background Component -->
+    <div class="app-background">
+      <component :is="currentBackgroundComponent" />
+    </div>
 
-  <div class="app-background">
-    <component :is="currentBackgroundComponent" />
+    <!-- Main Content -->
+    <div class="app-content">
+      <LandingPage v-if="!isAppStarted" @start-app="isAppStarted = true" />
+      <div v-else>
+        <BackgroundSelector
+          v-model="selectedBackground"
+          :options="backgroundOptions"
+        />
+        <!-- Main App Content Would Go Here -->
+      </div>
+    </div>
   </div>
 </template>
 
@@ -19,10 +28,14 @@ import {
   type ComputedRef,
   type Ref,
 } from 'vue';
+import LandingPage from '@/views/landing';
+import BackgroundSelector from '@/components/background-selector';
 import { BackgroundName, BackgroundType } from './modules/background/constants';
 export default defineComponent({
   name: 'App',
   components: {
+    LandingPage,
+    BackgroundSelector,
     [BackgroundName.BUBBLES]: defineAsyncComponent(
       () => import('@/modules/background/components/bg-bubbles'),
     ),
@@ -49,8 +62,10 @@ export default defineComponent({
     selectedBackground: Ref<BackgroundType>;
     backgroundOptions: BackgroundType[];
     currentBackgroundComponent: ComputedRef<BackgroundName>;
+    isAppStarted: Ref<boolean>;
   } {
     const selectedBackground = ref(BackgroundType.BUBBLES);
+    const isAppStarted = ref(false);
     const backgroundOptions = Object.values(BackgroundType);
 
     const backgroundComponentMap: Record<BackgroundType, BackgroundName> = {
@@ -71,23 +86,34 @@ export default defineComponent({
       selectedBackground,
       backgroundOptions,
       currentBackgroundComponent,
+      isAppStarted,
     };
   },
 });
 </script>
 
 <style scoped>
-select {
+.app-container {
   position: relative;
-  z-index: 10;
+  min-height: 100vh;
+  overflow: hidden;
 }
+
 .app-background {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden;
-  box-sizing: border-box;
+  z-index: -1;
 }
+
+.app-content {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 </style>
