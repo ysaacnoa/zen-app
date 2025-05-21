@@ -1,0 +1,53 @@
+:root {
+  /* Colores base en formato oklch */
+  --color-primary: oklch(60% 0.27 290);
+  --color-primary-rgb: 111, 54, 245;
+  --color-secondary: oklch(70% 0.2 220);
+  --color-secondary-rgb: 33, 173, 238;
+  --color-secondary-bg: oklch(85% 0.1 220);
+  --color-tertiary: oklch(80% 0.15 180);
+  --color-tertiary-rgb: 75, 209, 197;
+
+  /* Variaciones de primary en oklch */
+  --color-primary-light: oklch(70% 0.22 290);
+  --color-primary-light-rgb: 154, 114, 248;
+  --color-primary-lighter: oklch(85% 0.15 290);
+  --color-primary-lighter-rgb: 197, 173, 251;
+  --color-primary-dark: oklch(45% 0.25 290);
+  --color-primary-dark-rgb: 77, 28, 178;
+  --color-primary-darker: oklch(35% 0.2 290);
+  --color-primary-darker-rgb: 43, 10, 122;
+
+  /* Variaciones de secondary en oklch */
+  --color-secondary-light: oklch(80% 0.18 220);
+  --color-secondary-light-rgb: 95, 193, 241;
+  --color-secondary-lighter: oklch(90% 0.12 220);
+  --color-secondary-lighter-rgb: 157, 214, 245;
+  --color-secondary-dark: oklch(55% 0.18 220);
+  --color-secondary-dark-rgb: 21, 121, 176;
+  --color-secondary-darker: oklch(40% 0.15 220);
+  --color-secondary-darker-rgb: 11, 74, 110;
+
+  /* Variaciones de tertiary en oklch */
+  --color-tertiary-light: oklch(85% 0.12 180);
+  --color-tertiary-light-rgb: 125, 224, 215;
+  --color-tertiary-lighter: oklch(92% 0.08 180);
+  --color-tertiary-lighter-rgb: 174, 236, 230;
+  --color-tertiary-dark: oklch(65% 0.13 180);
+  --color-tertiary-dark-rgb: 47, 168, 158;
+  --color-tertiary-darker: oklch(50% 0.1 180);
+  --color-tertiary-darker-rgb: 26, 109, 102;
+
+  /* Colores para fondos */
+  --bg-blurred: linear-gradient(var(--color-primary), var(--color-tertiary));
+  --bg-bubbles1: var(--color-primary);
+  --bg-bubbles2: var(--color-secondary);
+  --bg-light-primary: oklch(90% 0.05 290);
+  --bg-light-secondary: oklch(85% 0.05 220);
+  --bg-mesh-primary: var(--color-primary-light);
+  --bg-mesh-secondary: var(--color-secondary-light);
+  --bg-motes-primary: var(--color-primary);
+  --bg-motes-secondary: var(--color-secondary);
+  --bg-mouse-start: var(--color-primary-light);
+  --bg-mouse-end: var(--color-secondary-dark);
+}

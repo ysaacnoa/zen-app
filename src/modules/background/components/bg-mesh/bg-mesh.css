@@ -6,6 +6,7 @@
   align-items: center;
   flex-direction: row;
   gap: 80px;
+  background: linear-gradient(40deg, var(--bg-light-secondary), var(--bg-light-primary));
 }
 
 .bg-shape {
@@ -72,13 +73,13 @@
 }
 
 .bg-colors-primary {
-  background-color: var(--mesh-color-primary);
+  background-color: var(--bg-mesh-primary);
 }
 
 .bg-colors-teal {
-  background-color: var(--mesh-color-teal);
+  background-color: var(--color-tertiary);
 }
 
 .bg-colors-purple {
-  background-color: var(--mesh-color-purple);
+  background-color: var(--color-primary);
 }
