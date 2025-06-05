@@ -80,11 +80,13 @@
             <div class="score-display">
               <h2>Puntaje total: {{ totalScore }}</h2>
               <p class="result-message">{{ resultMessage }}</p>
-              <pre class="results-data">{{ formResults }}</pre>
+              <Button @click="goToHome" class="start-button" type="button">
+                🚀 Empezar
+              </Button>
+              <Button @click="resetForm" class="restart-button" type="button">
+                Volver a empezar
+              </Button>
             </div>
-            <Button @click="resetForm" class="restart-button" type="button">
-              Volver a empezar
-            </Button>
           </CardContent>
         </Card>
       </div>
@@ -95,6 +97,8 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useForm } from 'vee-validate'
+import { useUserStore } from '@/modules/user/stores/user.store'
+import { router } from '@/modules/routes'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
@@ -162,9 +166,6 @@ const { setFieldValue, values: form } = useForm({
   }
 })
 
-// Debug form values
-console.log('Form values:', form.answers)
-
 const currentQuestions = computed(() => stepGroups[currentStep.value - 1])
 const progressPercentage = computed(() => `${(currentStep.value / 3) * 100}%`)
 
@@ -205,15 +206,14 @@ function resetForm() {
   })
 }
 
-function showResults() {
-  const results = getFormResults()
-  formResults.value = JSON.stringify(results, null, 2)
-  currentStep.value = 4 // Saltar directamente al paso de resultados
+function goToHome() {
+  router.push('/home')
 }
 
 function getFormResults() {
+  const userStore = useUserStore()
   return {
-    userId: 'uuid-del-usuario', // Simulado por ahora
+    userId: userStore.profile?.id || 'unknown',
     fecha: new Date().toISOString().split('T')[0],
     gad7: {
       ...form.answers,
@@ -224,7 +224,9 @@ function getFormResults() {
 
 function onSubmit() {
   if (currentStep.value === 3) {
-    showResults()
+    const results = getFormResults()
+    console.debug('Results:', results)
+    currentStep.value = 4
   } else {
     nextStep()
   }

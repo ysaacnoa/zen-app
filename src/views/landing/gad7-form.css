@@ -168,3 +168,10 @@
 .restart-button:hover {
   background-color: #6f36f5;
 }
+
+.start-button{
+  background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+  color: white;
+  width: 100%;
+  margin-bottom: 1rem;
+}
