@@ -33,17 +33,17 @@
 }
 
 .step.active .step-number {
-  background-color: #3b82f6;
+  background-color: var(--color-secondary);
   color: white;
 }
 
 .step.completed .step-number {
-  background-color: #10b981;
+  background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
   color: white;
 }
 
 .progress-bar {
-  height: 4px;
+  height: 6px;
   background-color: #e2e8f0;
   border-radius: 2px;
   position: relative;
@@ -51,9 +51,13 @@
 
 .progress-fill {
   height: 100%;
-  background-color: #3b82f6;
+  background: linear-gradient(90deg,
+    var(--color-primary) 0%,
+    var(--color-secondary) 50%,
+    var(--color-tertiary) 100%);
   border-radius: 2px;
   transition: width 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .options-grid {
@@ -69,7 +73,7 @@
   gap: 0.75rem;
   padding: 1rem;
   border-radius: 0.75rem;
-  border: 1px solid #e2e8f0;
+  background-color: white;
   transition: all 0.2s ease;
   cursor: pointer;
 }
@@ -78,8 +82,9 @@
   border-color: #7dd3fc;
 }
 
-.option-item:has(input:checked) {
-  border-color: #a78bfa;
+.option-item.selected {
+  background-color: #b2effa;
+  border-color: #7dd3fc;
 }
 
 .radio-group-item {
@@ -87,7 +92,7 @@
   height: 1.25rem;
 }
 
-.question-group{
+.question-group {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;

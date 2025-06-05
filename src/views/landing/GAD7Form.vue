@@ -31,23 +31,24 @@
                   <RadioGroup
                     v-bind="componentField"
                     class="options-grid"
-                    @update:modelValue="(val: string) => selectAnswer(question.id, val)"
+                    @update:modelValue="(val) => setFieldValue(`answers.${question.id}`, Number(val))"
                   >
-                    <div
+                    <label
                       v-for="(option, optIndex) in options"
                       :key="optIndex"
+                      :for="`${question.id}-${optIndex}`"
                       class="option-item"
-                      @click="selectAnswer(question.id, option.value)"
+                      :class="{ 'selected': form.answers[question.id] == option.value }"
                     >
                       <RadioGroupItem
                         :value="option.value"
                         :id="`${question.id}-${optIndex}`"
                         class="radio-group-item"
                       />
-                      <Label :for="`${question.id}-${optIndex}`">
+                      <span class="option-label">
                         {{ option.label }}
-                      </Label>
-                    </div>
+                      </span>
+                    </label>
                   </RadioGroup>
                 </FormControl>
                 <FormMessage />
@@ -96,7 +97,6 @@ import { ref, computed } from 'vue'
 import { useForm } from 'vee-validate'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Label } from '@/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import {
   Form,
@@ -162,6 +162,9 @@ const { setFieldValue, values: form } = useForm({
   }
 })
 
+// Debug form values
+console.log('Form values:', form.answers)
+
 const currentQuestions = computed(() => stepGroups[currentStep.value - 1])
 const progressPercentage = computed(() => `${(currentStep.value / 3) * 100}%`)
 
@@ -183,10 +186,6 @@ const resultMessage = computed(() => {
   if (score <= 14) return 'Ansiedad moderada'
   return 'Ansiedad grave'
 })
-
-function selectAnswer(questionId: string, value: number | string) {
-  setFieldValue(`answers.${questionId}`, Number(value))
-}
 
 function nextStep() {
   if (currentStep.value < 3) {
