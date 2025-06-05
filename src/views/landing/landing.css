@@ -96,7 +96,7 @@ h1, h2, h3, p, .hero-content p {
 }
 
 .gradient-text {
-  background: linear-gradient(to right, #7dd3fc, #a78bfa);
+  background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
