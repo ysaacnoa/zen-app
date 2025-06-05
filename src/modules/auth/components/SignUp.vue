@@ -1,5 +1,5 @@
 <template>
-  <form @submit="onSubmit" class="space-y-4 bg-white p-6 rounded-lg">
+  <form v-if="!showSuccess" @submit="onSubmit" class="space-y-4 bg-white p-6 rounded-lg">
     <div class="grid grid-cols-2 gap-4">
       <FormField v-slot="{ componentField }" name="firstname">
         <FormItem>
@@ -67,9 +67,24 @@
       </button>
     </div>
   </form>
+
+  <div v-if="showSuccess" class="space-y-4 bg-white p-6 rounded-lg text-center">
+    <div class="text-2xl">🎉 ¡Registro exitoso! 🎉</div>
+    <p class="text-gray-600">
+      Hemos enviado un correo de verificación a tu email.
+      Por favor revisa tu bandeja de entrada y haz clic en el enlace para confirmar tu cuenta.
+    </p>
+    <Button
+      class="w-full gradient-button mt-4"
+      @click="$emit('toggle-view')"
+    >
+      Ir a Iniciar Sesión
+    </Button>
+  </div>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Button } from '@/components/ui/button'
 import {
   FormControl,
@@ -101,6 +116,8 @@ const { handleSubmit } = useForm({
   validationSchema: formSchema,
 })
 
+const showSuccess = ref(false)
+
 const onSubmit = handleSubmit(async (values) => {
   try {
     const response = await authDAO.register(
@@ -110,7 +127,7 @@ const onSubmit = handleSubmit(async (values) => {
       values.password
     )
     console.log('Registration successful:', response)
-    // TODO: Handle successful registration
+    showSuccess.value = true
   } catch (error) {
     console.error('Registration failed:', error)
     // TODO: Handle registration error

@@ -38,6 +38,8 @@
 </template>
 
 <script setup lang="ts">
+import { nextTick } from 'vue'
+import { useRouter } from 'vue-router'
 import { Button } from '@/components/ui/button'
 import {
   FormControl,
@@ -51,6 +53,9 @@ import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import * as z from 'zod'
 import { authDAO } from '../dao/auth.dao'
+
+const router = useRouter()
+const emit = defineEmits(['close', 'toggle-view'])
 
 const formSchema = toTypedSchema(
   z.object({
@@ -67,10 +72,11 @@ const onSubmit = handleSubmit(async (values) => {
   try {
     const response = await authDAO.login(values.email, values.password)
     console.log('Login successful:', response)
-    // TODO: Handle successful login (store token, redirect, etc.)
+    emit('close')
+    await nextTick()
+    router.push('/forms')
   } catch (error) {
     console.error('Login failed:', error)
-    // TODO: Handle login error
   }
 })
 </script>
