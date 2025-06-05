@@ -9,7 +9,7 @@
         <p>
           Zen-App te guía en un viaje de mindfulness y hábitos saludables para reducir el estrés y mejorar tu bienestar diario.
         </p>
-        <Dialog>
+        <Dialog v-model:open="dialogOpen">
           <DialogTrigger as-child>
             <Button class="cta-button">
               🚀 Empieza ahora
@@ -23,8 +23,16 @@
               </DialogDescription>
             </DialogHeader>
 
-            <SignIn v-if="isLoginView" @toggle-view="toggleView" />
-            <SignUp v-else @toggle-view="toggleView" />
+            <SignIn
+              v-if="isLoginView"
+              @toggle-view="toggleView"
+              @close="() => dialogOpen = false"
+            />
+            <SignUp
+              v-else
+              @toggle-view="toggleView"
+              @close="() => dialogOpen = false"
+            />
           </DialogContent>
         </Dialog>
       </div>
@@ -90,6 +98,7 @@ import SignIn from '../../modules/auth/components/SignIn.vue'
 import SignUp from '../../modules/auth/components/SignUp.vue'
 
 const isLoginView = ref(true)
+const dialogOpen = ref(false)
 
 const toggleView = () => {
   isLoginView.value = !isLoginView.value
