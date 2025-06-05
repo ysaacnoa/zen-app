@@ -5,7 +5,7 @@ export const UserProfileSchema = z.object({
   email: z.string().email(),
   firstName: z.string(),
   lastName: z.string(),
-  avatarUrl: z.string().optional(),
+  avatarUrl: z.string().nullable().optional(),
   xp: z.number(),
   level: z.number(),
   authProvider: z.string()
