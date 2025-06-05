@@ -16,7 +16,12 @@ export class ApiService {
   private getHeaders(): Record<string, string> {
     const token = AuthTokenService.getToken()
     return token
-      ? { ...this.defaultHeaders, 'Authorization': `Bearer ${token}` }
+      ? {
+          ...this.defaultHeaders,
+          'Authorization': `Bearer ${token}`,
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-Audience': 'zen-app'
+        }
       : this.defaultHeaders
   }
 
@@ -43,9 +48,11 @@ export class ApiService {
     schema?: z.ZodType<T>
   ): Promise<T> {
     try {
+      const headers = this.getHeaders()
+
       const response = await fetch(`${this.baseUrl}${endpoint}`, {
         method,
-        headers: this.getHeaders(),
+        headers,
         credentials: 'include',
         body: body ? JSON.stringify(body) : undefined
       })
