@@ -40,6 +40,7 @@
 <script setup lang="ts">
 import { nextTick } from 'vue'
 import { useRouter } from 'vue-router'
+import { useUserStore } from '@/modules/user/stores/user.store'
 import { Button } from '@/components/ui/button'
 import {
   FormControl,
@@ -72,6 +73,10 @@ const onSubmit = handleSubmit(async (values) => {
   try {
     const response = await authDAO.login(values.email, values.password)
     console.log('Login successful:', response)
+
+    const userStore = useUserStore()
+    await userStore.loadProfile()
+
     emit('close')
     await nextTick()
     router.push('/forms')
