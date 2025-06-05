@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import AuthTokenService from './auth-token.service'
 
 export class ApiService {
   private baseUrl: string
@@ -10,6 +11,13 @@ export class ApiService {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     }
+  }
+
+  private getHeaders(): Record<string, string> {
+    const token = AuthTokenService.getToken()
+    return token
+      ? { ...this.defaultHeaders, 'Authorization': `Bearer ${token}` }
+      : this.defaultHeaders
   }
 
   async get<T>(endpoint: string, schema: z.ZodType<T>): Promise<T> {
@@ -37,7 +45,7 @@ export class ApiService {
     try {
       const response = await fetch(`${this.baseUrl}${endpoint}`, {
         method,
-        headers: this.defaultHeaders,
+        headers: this.getHeaders(),
         credentials: 'include',
         body: body ? JSON.stringify(body) : undefined
       })
