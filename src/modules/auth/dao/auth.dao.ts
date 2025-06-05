@@ -7,6 +7,9 @@ import type { UserProfile } from '@/modules/user/models/user-profile.schema'
 const API_BASE_URL = 'http://localhost:3000/auth'
 
 export class AuthDAO {
+  isAuthenticated(): boolean {
+    return !!AuthTokenService.getToken()
+  }
   private apiService: ApiService
 
   constructor() {
