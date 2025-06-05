@@ -93,7 +93,6 @@ export default defineComponent({
 .app-container {
   position: relative;
   min-height: 100vh;
-  overflow: hidden;
 }
 
 .app-background {
@@ -111,6 +110,7 @@ export default defineComponent({
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
 }
 
 </style>
