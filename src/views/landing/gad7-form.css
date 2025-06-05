@@ -72,16 +72,13 @@
   border: 1px solid #e2e8f0;
   transition: all 0.2s ease;
   cursor: pointer;
-  background: white;
 }
 
 .option-item:hover {
-  background-color: #f0f9ff;
   border-color: #7dd3fc;
 }
 
 .option-item:has(input:checked) {
-  background-color: #f5f3ff;
   border-color: #a78bfa;
 }
 
@@ -98,7 +95,6 @@
 
 .question-card {
   padding-inline: 1rem;
-  background: white;
   border-radius: 1rem;
 }
 
