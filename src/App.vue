@@ -7,14 +7,11 @@
 
     <!-- Main Content -->
     <div class="app-content">
-      <LandingPage v-if="!isAppStarted" @start-app="isAppStarted = true" />
       <BackgroundSelector
         v-model="selectedBackground"
         :options="backgroundOptions"
       />
-      <div v-if="isAppStarted">
-        <!-- Main App Content Would Go Here -->
-      </div>
+      <router-view />
     </div>
   </div>
 </template>
@@ -65,7 +62,7 @@ export default defineComponent({
     isAppStarted: Ref<boolean>;
   } {
     const selectedBackground = ref(BackgroundType.BUBBLES);
-    const isAppStarted = ref(false);
+    const isAppStarted = ref(true); // Always show app content since routing handles it
     const backgroundOptions = Object.values(BackgroundType);
 
     const backgroundComponentMap: Record<BackgroundType, BackgroundName> = {
