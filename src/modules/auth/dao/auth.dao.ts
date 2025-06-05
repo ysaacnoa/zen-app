@@ -24,14 +24,14 @@ export class AuthDAO {
   }
 
   async register(
-    firstname: string,
-    lastname: string,
+    firstName: string,
+    lastName: string,
     email: string,
     password: string
   ): Promise<AuthResponse> {
     const response = await this.apiService.post('/register', {
-      firstname,
-      lastname,
+      firstName,
+      lastName,
       email,
       password
     }, AuthResponseSchema)
