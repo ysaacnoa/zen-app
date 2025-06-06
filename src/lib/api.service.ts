@@ -41,6 +41,45 @@ export class ApiService {
     return this.request<T>('DELETE', endpoint, undefined, schema)
   }
 
+  private buildRequestOptions(method: string, body?: unknown): RequestInit {
+    return {
+      method,
+      headers: this.getHeaders(),
+      credentials: 'include',
+      body: body ? JSON.stringify(body) : undefined
+    }
+  }
+
+  private async handleResponse<T>(response: Response, schema?: z.ZodType<T>): Promise<T> {
+    if (!response.ok) {
+      throw new Error(`HTTP error ${response.status}: ${await response.text()}`)
+    }
+    const data = await response.json()
+    return this.validateData(data, schema)
+  }
+
+  private validateData<T>(data: unknown, schema?: z.ZodType<T>): T {
+    return schema ? schema.parse(data) : data as T
+  }
+
+  private handleUnauthorized(): never {
+    AuthTokenService.clearToken()
+    throw new Error('Session expired. Please login again.')
+  }
+
+  private handleError(method: string, endpoint: string, error: unknown): never {
+    console.error(`API request failed: ${method} ${endpoint}`, error)
+
+    if (error instanceof Error) {
+      if (error.message.includes('401')) {
+        this.handleUnauthorized()
+      }
+      throw error
+    }
+
+    throw new Error(`API request failed: ${error}`)
+  }
+
   private async request<T>(
     method: string,
     endpoint: string,
@@ -48,24 +87,11 @@ export class ApiService {
     schema?: z.ZodType<T>
   ): Promise<T> {
     try {
-      const headers = this.getHeaders()
-
-      const response = await fetch(`${this.baseUrl}${endpoint}`, {
-        method,
-        headers,
-        credentials: 'include',
-        body: body ? JSON.stringify(body) : undefined
-      })
-
-      if (!response.ok) {
-        throw new Error(`HTTP error ${response.status}: ${await response.text()}`)
-      }
-
-      const data = await response.json()
-      return schema ? schema.parse(data) : data as T
+      const options = this.buildRequestOptions(method, body)
+      const response = await fetch(`${this.baseUrl}${endpoint}`, options)
+      return await this.handleResponse(response, schema)
     } catch (error) {
-      console.error(`API request failed: ${method} ${endpoint}`, error)
-      throw error instanceof Error ? error : new Error('Unknown API error')
+      this.handleError(method, endpoint, error)
     }
   }
 }
