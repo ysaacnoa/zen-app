@@ -1,0 +1,24 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .outer-circle {
+      fill: #FF5722;
+      opacity: 0.8;
+    }
+    .inner-circle {
+      fill: #FBE9E7;
+    }
+    .star {
+      fill: #BF360C;
+      transform-origin: 50% 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.9; }
+    }
+  </style>
+  
+  <circle class="outer-circle" cx="64" cy="64" r="60"/>
+  <circle class="inner-circle" cx="64" cy="64" r="50"/>
+  <path class="star" d="M64 40l10 25 25 10-25 10-10 25-10-25-25-10 25-10z"/>
+</svg>
