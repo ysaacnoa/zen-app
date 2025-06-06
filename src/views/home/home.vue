@@ -1,5 +1,5 @@
 <template>
-  <div class="home-layout">
+  <div class="content-layout">
     <!-- Sidebar -->
     <SidebarProvider>
       <SidebarApp
@@ -9,8 +9,12 @@
       />
     </SidebarProvider>
 
+    <!-- Header -->
+    <header class="main-header glass-light">
+    </header>
+
     <!-- Main Content -->
-    <div class="main-content">
+    <div class="main-content glass-dense">
       <slot></slot>
     </div>
   </div>

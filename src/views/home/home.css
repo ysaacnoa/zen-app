@@ -1,6 +1,18 @@
-.home-layout {
-  display: flex;
+.content-layout {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 70px 1fr;
+  grid-template-areas:
+    "sidebar header"
+    "sidebar main";
   height: 100vh;
+  overflow: hidden;
+}
+
+.main-header {
+  grid-area: header;
+  height: 70px;
+  padding: 1rem;
 }
 
 
@@ -25,17 +37,9 @@
 
 /* Main content styles */
 .main-content {
-  flex: 1;
+  grid-area: main;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-}
-
-/* Glass effect */
-.glass-card {
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(33px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  overflow: auto;
+  padding: 1rem;
 }

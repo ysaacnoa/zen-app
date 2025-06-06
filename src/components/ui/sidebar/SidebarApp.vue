@@ -1,5 +1,5 @@
 <template>
-  <Sidebar class="glass-card" :collapsible="'icon'" :expanded="isExpanded" @update:expanded="setExpanded($event)">
+  <Sidebar class="glass-light" :collapsible="'icon'" :expanded="isExpanded" @update:expanded="setExpanded($event)">
     <SidebarHeader>
       <div class="flex items-center justify-between p-4">
         <h2 v-if="isExpanded" class="text-xl font-semibold">Zen App</h2>
