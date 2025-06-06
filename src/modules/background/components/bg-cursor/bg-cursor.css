@@ -22,4 +22,5 @@
   height: 26px;
   border-radius: 20px;
   background-color: #fff;
+  pointer-events: none;
 }

@@ -31,8 +31,6 @@
 
 /* main wrapper */
 .gradient-bg {
-  width: 100%;
-  height: 100%;
   background: linear-gradient(40deg, var(--bg-light-secondary), var(--bg-light-primary));
 
   svg {

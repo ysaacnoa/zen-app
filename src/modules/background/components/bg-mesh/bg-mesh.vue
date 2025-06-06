@@ -1,7 +1,8 @@
 <template>
-  <div class="mesh">
+  <div class="bg-position mesh">
     <div v-for="(shape, index) in shapes" :key="index" :class="shape.classes"></div>
   </div>
+  <slot></slot>
 </template>
 
 <script lang="ts">

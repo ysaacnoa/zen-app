@@ -1,5 +1,5 @@
 <template>
-  <div class="gradient-bg">
+  <div class="bg-position gradient-bg">
     <svg xmlns="http://www.w3.org/2000/svg">
       <defs>
         <filter id="goo">
@@ -18,6 +18,7 @@
       <div ref="interactive" class="gradient interactive"></div>
     </div>
   </div>
+  <slot></slot>
 </template>
 
 <script lang="ts">

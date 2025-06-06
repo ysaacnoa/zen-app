@@ -1,7 +1,8 @@
 <template>
-  <div class="blurred-container">
+  <div class="bg-position blurred-container">
     <div class="blurred"></div>
   </div>
+  <slot></slot>
 </template>
 
 

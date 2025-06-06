@@ -1,6 +1,7 @@
 <template>
   <div class="glassy-overlay"></div>
-  <canvas id="canvas-mouse"></canvas>
+  <canvas id="canvas-mouse" class="bg-position" ></canvas>
+  <slot></slot>
 </template>
 
 <script lang="ts">
