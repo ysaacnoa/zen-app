@@ -14,11 +14,13 @@
   },
   "dependencies": {
     "@pinia/nuxt": "^0.11.1",
+    "@types/marked": "^6.0.0",
     "@vee-validate/zod": "^4.15.0",
     "@vueuse/core": "^13.2.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-vue-next": "^0.511.0",
+    "marked": "^15.0.12",
     "pinia": "^3.0.3",
     "reka-ui": "^2.2.1",
     "tailwind-merge": "^3.3.0",
