@@ -33,8 +33,10 @@ import { SidebarProvider } from '@/components/ui/sidebar'
 const userStore = useUserStore()
 
 onMounted(async () => {
-  await userStore.loadProfile()
-  console.debug('STORE USER', userStore.profile)
+  // Load profile if not already loaded
+  if (!userStore.profile) {
+    await userStore.fetchProfile()
+  }
 })
 </script>
 
