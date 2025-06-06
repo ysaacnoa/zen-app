@@ -14,25 +14,41 @@
       <SidebarGroup>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton class="w-full justify-start" :tooltip="'Feed'">
+            <SidebarMenuButton
+              class="w-full justify-start"
+              :tooltip="'Feed'"
+              @click="router.push({ name: 'feed' })"
+            >
               <HomeIcon class="h-4 w-4" />
               <span class="ml-2 group-data-[collapsible=icon]/sidebar:hidden">Feed</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton class="w-full justify-start" :tooltip="'Retos'">
+            <SidebarMenuButton
+              class="w-full justify-start"
+              :tooltip="'Retos'"
+              @click="router.push({ name: 'challenges' })"
+            >
               <TrophyIcon class="h-4 w-4" />
               <span class="ml-2 group-data-[collapsible=icon]/sidebar:hidden">Retos</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton class="w-full justify-start" :tooltip="'Recompensas'">
+            <SidebarMenuButton
+              class="w-full justify-start"
+              :tooltip="'Recompensas'"
+              @click="router.push({ name: 'rewards' })"
+            >
               <GiftIcon class="h-4 w-4" />
               <span class="ml-2 group-data-[collapsible=icon]/sidebar:hidden">Recompensas</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton class="w-full justify-start" :tooltip="'Analítica'">
+            <SidebarMenuButton
+              class="w-full justify-start"
+              :tooltip="'Analítica'"
+              @click="router.push({ name: 'analytics' })"
+            >
               <BarChart2Icon class="h-4 w-4" />
               <span class="ml-2 group-data-[collapsible=icon]/sidebar:hidden">Analítica</span>
             </SidebarMenuButton>
@@ -88,6 +104,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 import {
   Sidebar,
   SidebarContent,
@@ -123,6 +141,7 @@ import {
   ChevronRight
 } from 'lucide-vue-next'
 import SidebarRail from './SidebarRail.vue'
+
 
 const {
   state: sidebarState,

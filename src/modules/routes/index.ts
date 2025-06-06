@@ -23,7 +23,29 @@ const router = createRouter({
       path: '/home',
       name: 'home',
       component: HomeView,
-      meta: { requiresAuth: true }
+      meta: { requiresAuth: true },
+      children: [
+        {
+          path: '',
+          name: 'feed',
+          component: () => import('@/views/home/feed')
+        },
+        {
+          path: 'challenges',
+          name: 'challenges',
+          component: () => import('@/views/home/challenges')
+        },
+        {
+          path: 'rewards',
+          name: 'rewards',
+          component: () => import('@/views/home/rewards')
+        },
+        {
+          path: 'analytics',
+          name: 'analytics',
+          component: () => import('@/views/home/analytics')
+        }
+      ]
     },
     {
       path: '/landing',

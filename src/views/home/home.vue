@@ -15,7 +15,7 @@
 
     <!-- Main Content -->
     <div class="main-content glass-dense">
-      <slot></slot>
+      <router-view />
     </div>
   </div>
 </template>
