@@ -1,18 +1,13 @@
 <template>
   <div class="app-container">
     <!-- Background Component -->
-    <div class="app-background">
-      <component :is="currentBackgroundComponent" />
-    </div>
-
-    <!-- Main Content -->
-    <div class="app-content">
-      <BackgroundSelector
-        v-model="selectedBackground"
-        :options="backgroundOptions"
-      />
-      <router-view />
-    </div>
+    <component :is="currentBackgroundComponent">
+      <!-- Main Content -->
+      <div class="app-content">
+        <BackgroundSelector v-model="selectedBackground" :options="backgroundOptions" />
+        <router-view />
+      </div>
+    </component>
   </div>
 </template>
 
@@ -72,7 +67,7 @@ export default defineComponent({
       [BackgroundType.MESH]: BackgroundName.MESH,
       [BackgroundType.MOTES]: BackgroundName.MOTES,
       [BackgroundType.BLURRED]: BackgroundName.BLURRED,
-      [BackgroundType.CURSOR]: BackgroundName.CURSOR
+      [BackgroundType.CURSOR]: BackgroundName.CURSOR,
     };
 
     const currentBackgroundComponent = computed(() => {
@@ -91,26 +86,15 @@ export default defineComponent({
 
 <style scoped>
 .app-container {
-  position: relative;
   min-height: 100vh;
 }
 
-.app-background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-}
-
 .app-content {
-  position: relative;
-  z-index: 1;
+  pointer-events: auto;
+  width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
 }
-
 </style>
