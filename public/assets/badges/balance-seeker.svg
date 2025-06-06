@@ -1,0 +1,33 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .outer-circle {
+      fill: #795548;
+      opacity: 0.8;
+    }
+    .inner-circle {
+      fill: #EFEBE9;
+    }
+    .cross {
+      stroke: #5D4037;
+      stroke-width: 4;
+      transform-origin: 50% 50%;
+      animation: balance 3s ease-in-out infinite;
+    }
+    .x-shape {
+      stroke: #5D4037;
+      stroke-width: 2;
+      transform-origin: 50% 50%;
+      animation: balance 3s ease-in-out infinite;
+    }
+    @keyframes balance {
+      0%, 100% { transform: rotate(-10deg); }
+      50% { transform: rotate(10deg); }
+    }
+  </style>
+  
+  <circle class="outer-circle" cx="64" cy="64" r="60"/>
+  <circle class="inner-circle" cx="64" cy="64" r="50"/>
+  
+  <path class="cross" d="M64 30l0 68M30 64l68 0"/>
+  <path class="x-shape" d="M44 44l40 40M44 84l40-40"/>
+</svg>

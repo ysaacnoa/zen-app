@@ -132,8 +132,10 @@ export class CanvasMouseAnimation {
    */
   private drawTrail() {
     const gradient = this.ctx.createLinearGradient(0, 0, this.canvas.width, this.canvas.height);
-    gradient.addColorStop(0, 'rgba(160, 93, 134, 1)');
-    gradient.addColorStop(1, 'rgba(57, 34, 115, 1)');
+    gradient.addColorStop(0, getComputedStyle(document.documentElement)
+      .getPropertyValue('--bg-mouse-start').trim());
+    gradient.addColorStop(1, getComputedStyle(document.documentElement)
+      .getPropertyValue('--bg-mouse-end').trim());
 
     this.ctx.strokeStyle = gradient;
     this.ctx.lineCap = 'round';

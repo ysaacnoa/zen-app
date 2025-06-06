@@ -1,0 +1,41 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .outer-circle {
+      fill: #3F51B5;
+      opacity: 0.8;
+    }
+    .inner-circle {
+      fill: #E8EAF6;
+    }
+    .road-circle {
+      stroke: #1A237E;
+      stroke-width: 8;
+      fill: none;
+    }
+    .dot {
+      fill: #FFFFFF;
+      animation: travel 3s linear infinite;
+      transform-origin: 64px 64px;
+    }
+    @keyframes travel {
+      0% { transform: rotate(0deg) translateX(30px) rotate(0deg); opacity: 1; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: rotate(360deg) translateX(30px) rotate(-360deg); opacity: 1; }
+    }
+  </style>
+  
+  <circle class="outer-circle" cx="64" cy="64" r="60"/>
+  <circle class="inner-circle" cx="64" cy="64" r="50"/>
+  
+  <!-- Círculo carretera perfectamente centrado -->
+  <circle class="road-circle" cx="64" cy="64" r="30"/>
+  
+  <!-- Puntos animados perfectamente alineados -->
+  <circle class="dot" cx="64" cy="64" r="3" style="animation-delay: 0s"/>
+  <circle class="dot" cx="64" cy="64" r="3" style="animation-delay: 0.5s"/>
+  <circle class="dot" cx="64" cy="64" r="3" style="animation-delay: 1s"/>
+  <circle class="dot" cx="64" cy="64" r="3" style="animation-delay: 1.5s"/>
+  <circle class="dot" cx="64" cy="64" r="3" style="animation-delay: 2s"/>
+  <circle class="dot" cx="64" cy="64" r="3" style="animation-delay: 2.5s"/>
+</svg>

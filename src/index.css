@@ -1,4 +1,8 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+@import './styles/colors.css';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
 
 * {
   transition: all 0.5s ease-out;
@@ -7,45 +11,24 @@
 html,
 body {
   height: 100%;
-  overflow: hidden;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
 :root {
-  /* Variables para el fondo de mesh */
-  --mesh-color-primary: rgb(30, 0, 255);
-  --mesh-color-teal: rgb(255, 72, 173);
-  --mesh-color-purple: rgb(140, 0, 215);
+  /* Variables de animación */
   --mesh-blur-intensity: 90px;
   --mesh-opacity-50: 0.5;
   --mesh-animation-duration: 10s;
-
-  /* Variables para el fondo de motes */
-  --motes-color-primary: rgb(5, 124, 172);
-  --motes-color-secondary: rgb(199, 10, 114);
-  --motes-color-teal: rgba(47, 247, 202, 0.3);
-  --motes-color-yellow: rgba(245, 207, 82, 0.6);
-  --motes-color-green: rgba(183, 253, 52, 0.5);
-  --motes-color-red: rgba(199, 10, 52, 0.6);
   --motes-blur-intensity: 80px;
   --motes-animation-duration-down: 40s;
   --motes-animation-duration-up: 30s;
   --motes-animation-duration-left: 30s;
   --motes-animation-duration-right: 30s;
-
-  /* Variables para el fondo de burbujas */
-  --bubbles-color-bg1: rgb(108, 0, 162);
-  --bubbles-color-bg2: rgb(0, 17, 82);
-  --bubbles-color1: 18, 113, 255;
-  --bubbles-color2: 221, 74, 255;
-  --bubbles-color3: 100, 220, 255;
-  --bubbles-color4: 200, 50, 50;
-  --bubbles-color5: 180, 180, 50;
-  --bubbles-color-interactive: 140, 100, 255;
   --bubbles-circle-size: 80%;
   --bubbles-blending: hard-light;
+
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -155,11 +138,47 @@ body {
   --sidebar-ring: oklch(0.439 0 0);
 }
 
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
+.glass-card {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(33px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.glass-light {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.glass-dense {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.bg-gradient {
+  background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+  color: white;
+}
+
+.bg-position {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.bg-position > :not(.cursor) {
+  position: relative;
+  z-index: 1;
+  pointer-events: auto;
 }

@@ -22,6 +22,7 @@
       <div class="circle"></div>
       <div class="circle"></div>
     </div>
+    <slot></slot>
   </div>
 </template>
 

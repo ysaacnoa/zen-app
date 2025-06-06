@@ -1,0 +1,18 @@
+.feed-view {
+  padding: 1rem;
+}
+
+.recommendation {
+  margin-bottom: 1rem;
+}
+
+.recommendation :deep(h1),
+.recommendation :deep(h2),
+.recommendation :deep(h3),
+.recommendation :deep(h4),
+.recommendation :deep(h5),
+.recommendation :deep(h6) {
+  font-size: revert;
+  font-weight: revert;
+  margin: revert;
+}

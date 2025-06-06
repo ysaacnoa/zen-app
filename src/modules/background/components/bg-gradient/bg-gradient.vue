@@ -1,5 +1,6 @@
 <template>
-  <canvas id="canvas-gradient" class="canvas-gradient" width="32" height="32"></canvas>
+  <canvas id="canvas-gradient" class="bg-position canvas-gradient" width="32" height="32"></canvas>
+  <slot></slot>
 </template>
 
 <script lang="ts">

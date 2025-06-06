@@ -1,21 +1,13 @@
 <template>
   <div class="app-container">
     <!-- Background Component -->
-    <div class="app-background">
-      <component :is="currentBackgroundComponent" />
-    </div>
-
-    <!-- Main Content -->
-    <div class="app-content">
-      <LandingPage v-if="!isAppStarted" @start-app="isAppStarted = true" />
-      <BackgroundSelector
-        v-model="selectedBackground"
-        :options="backgroundOptions"
-      />
-      <div v-if="isAppStarted">
-        <!-- Main App Content Would Go Here -->
+    <component :is="currentBackgroundComponent">
+      <!-- Main Content -->
+      <div class="app-content">
+        <BackgroundSelector v-model="selectedBackground" :options="backgroundOptions" />
+        <router-view />
       </div>
-    </div>
+    </component>
   </div>
 </template>
 
@@ -65,7 +57,7 @@ export default defineComponent({
     isAppStarted: Ref<boolean>;
   } {
     const selectedBackground = ref(BackgroundType.BUBBLES);
-    const isAppStarted = ref(false);
+    const isAppStarted = ref(true); // Always show app content since routing handles it
     const backgroundOptions = Object.values(BackgroundType);
 
     const backgroundComponentMap: Record<BackgroundType, BackgroundName> = {
@@ -75,7 +67,7 @@ export default defineComponent({
       [BackgroundType.MESH]: BackgroundName.MESH,
       [BackgroundType.MOTES]: BackgroundName.MOTES,
       [BackgroundType.BLURRED]: BackgroundName.BLURRED,
-      [BackgroundType.CURSOR]: BackgroundName.CURSOR
+      [BackgroundType.CURSOR]: BackgroundName.CURSOR,
     };
 
     const currentBackgroundComponent = computed(() => {
@@ -94,26 +86,15 @@ export default defineComponent({
 
 <style scoped>
 .app-container {
-  position: relative;
   min-height: 100vh;
-  overflow: hidden;
-}
-
-.app-background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
 }
 
 .app-content {
-  position: relative;
-  z-index: 1;
+  pointer-events: auto;
+  width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
 }
-
 </style>

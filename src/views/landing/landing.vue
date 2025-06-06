@@ -9,9 +9,32 @@
         <p>
           Zen-App te guía en un viaje de mindfulness y hábitos saludables para reducir el estrés y mejorar tu bienestar diario.
         </p>
-        <Button class="cta-button">
-          Empieza ahora
-        </Button>
+        <Dialog v-model:open="dialogOpen">
+          <DialogTrigger as-child>
+            <Button class="cta-button">
+              🚀 Empieza ahora
+            </Button>
+          </DialogTrigger>
+          <DialogContent class="max-w-2xl">
+            <DialogHeader>
+              <DialogTitle class="gradient-text">{{ isLoginView ? 'Iniciar sesión' : 'Registrarse' }}</DialogTitle>
+              <DialogDescription>
+                {{ isLoginView ? 'Accede a tu cuenta para comenzar' : 'Crea una cuenta para comenzar' }}
+              </DialogDescription>
+            </DialogHeader>
+
+            <SignIn
+              v-if="isLoginView"
+              @toggle-view="toggleView"
+              @close="() => dialogOpen = false"
+            />
+            <SignUp
+              v-else
+              @toggle-view="toggleView"
+              @close="() => dialogOpen = false"
+            />
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
 
@@ -60,15 +83,31 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from '@/components/ui/dialog'
+import SignIn from '../../modules/auth/components/SignIn.vue'
+import SignUp from '../../modules/auth/components/SignUp.vue'
+
+const isLoginView = ref(true)
+const dialogOpen = ref(false)
+
+const toggleView = () => {
+  isLoginView.value = !isLoginView.value
+}
 
 defineOptions({
   name: 'LandingPage'
 })
 </script>
-
-
 
 <style scoped>
 @import './landing.css';

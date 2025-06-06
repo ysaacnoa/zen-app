@@ -1,0 +1,45 @@
+.content-layout {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 70px 1fr;
+  grid-template-areas:
+    "sidebar header"
+    "sidebar main";
+  height: 100vh;
+  overflow: hidden;
+}
+
+.main-header {
+  grid-area: header;
+  height: 70px;
+  padding: 1rem;
+}
+
+
+/* User section at bottom */
+.user-section {
+  padding: 1rem;
+  margin-top: auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+/* Main content styles */
+.main-content {
+  grid-area: main;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  padding: 1rem;
+}

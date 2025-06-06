@@ -1,0 +1,24 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .outer-circle {
+      fill: #607D8B;
+      opacity: 0.8;
+    }
+    .inner-circle {
+      fill: #ECEFF1;
+    }
+    .zen {
+      fill: #455A64;
+      transform-origin: 50% 50%;
+      animation: breathe 5s ease-in-out infinite;
+    }
+    @keyframes breathe {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(0.95); opacity: 0.8; }
+    }
+  </style>
+  
+  <circle class="outer-circle" cx="64" cy="64" r="60"/>
+  <circle class="inner-circle" cx="64" cy="64" r="50"/>
+  <path class="zen" d="M64 40a24 24 0 0 1 0 48 24 24 0 0 1 0-48zm0 8a16 16 0 0 0 0 32 16 16 0 0 0 0-32z"/>
+</svg>

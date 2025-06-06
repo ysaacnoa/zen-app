@@ -21,20 +21,12 @@
 
 .hero-content {
   max-width: 1100px;
+  border-radius: 1.5rem;
   padding: 4rem;
 }
 
-.glass-card {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(12px);
-  border-radius: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
 .glass-card:hover {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.3);
   transform: translateY(-5px);
 }
 
@@ -49,7 +41,6 @@
   text-align: center;
   margin-bottom: 1rem;
   font-weight: bold;
-  color: white
 }
 
 .features-grid {
@@ -77,30 +68,25 @@
   text-align: center;
 }
 
-h1 {
-  font-size: 3rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-  color: #f3f4f6;
-}
 
-h3, p{
-  color: #f3f4f6;
+h1, h2, h3, p, .hero-content p {
+  mix-blend-mode: darken;
+  isolation: isolate;
 }
 
 .hero-content p {
   font-size: 1.25rem;
-  color: rgba(255, 255, 255, 0.8);
   margin-bottom: 2rem;
   max-width: 36rem;
   line-height: 1.6;
 }
 
 .gradient-text {
-  background: linear-gradient(to right, #7dd3fc, #a78bfa);
+  background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  text-shadow: none;
 }
 
 .cta-button {
