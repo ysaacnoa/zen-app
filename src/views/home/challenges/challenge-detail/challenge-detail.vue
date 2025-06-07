@@ -17,11 +17,7 @@
       </div>
 
       <div class="challenge-component">
-        <audio-challenge v-if="challenge.type === 'AUDIO'" :challenge="challenge" />
-        <text-challenge v-else-if="challenge.type === 'TEXT'" :challenge="challenge" />
-        <form-challenge v-else-if="challenge.type === 'FORM'" :challenge="challenge" />
-        <timer-challenge v-else-if="challenge.type === 'TIMER'" :challenge="challenge" />
-        <click-challenge v-else-if="challenge.type === 'CLICK'" :challenge="challenge" />
+        <component :is="challengeComponents[challenge.type]" :challenge="challenge" />
       </div>
     </div>
     <div v-else>
@@ -35,11 +31,15 @@ import { useRoute, useRouter } from 'vue-router'
 import { ref, onMounted } from 'vue'
 import { useChallengeStore } from '@/modules/gamification/challenges/stores/challenge.store'
 import type { Challenge } from '@/modules/gamification/challenges/models/challenge.model'
-import AudioChallenge from './components/audio-challenge'
-import TextChallenge from './components/text-challenge'
-import FormChallenge from './components/form-challenge'
-import TimerChallenge from './components/timer-challenge'
-import ClickChallenge from './components/click-challenge'
+import { defineAsyncComponent } from 'vue'
+
+const challengeComponents = {
+  AUDIO: defineAsyncComponent(() => import('./components/audio-challenge')),
+  TEXT: defineAsyncComponent(() => import('./components/text-challenge')),
+  FORM: defineAsyncComponent(() => import('./components/form-challenge')),
+  TIMER: defineAsyncComponent(() => import('./components/timer-challenge')),
+  CLICK: defineAsyncComponent(() => import('./components/click-challenge'))
+}
 
 const route = useRoute()
 const router = useRouter()
