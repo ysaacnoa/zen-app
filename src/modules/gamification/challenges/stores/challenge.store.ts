@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { challengeDAO } from '../dao/challenge.dao'
+import { ChallengeService } from '../services/challenge.service'
 import type { Challenge } from '../models/challenge.model'
 
 interface ChallengeState {
@@ -8,6 +8,8 @@ interface ChallengeState {
   error: string | null
   initialized: boolean
 }
+
+const service = new ChallengeService()
 
 export const useChallengeStore = defineStore('challenge', {
   state: (): ChallengeState => ({
@@ -25,7 +27,8 @@ export const useChallengeStore = defineStore('challenge', {
       this.loading = true
       this.error = null
       try {
-        this.challenges = await challengeDAO.getChallenges(userId)
+
+        this.challenges = await service.getChallenges(userId)
         this.initialized = true
       } catch (err) {
         this.error = String(err)
@@ -44,7 +47,7 @@ export const useChallengeStore = defineStore('challenge', {
     async completeChallenge(challengeId: string) {
       this.loading = true
       try {
-        const updatedChallenge = await challengeDAO.completeChallenge(challengeId)
+        const updatedChallenge = await service.completeChallenge(challengeId)
         this.challenges = this.challenges.map(c =>
           c.id === challengeId ? updatedChallenge : c
         )
