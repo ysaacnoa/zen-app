@@ -3,47 +3,47 @@ export enum ChallengeType {
   FORM = 'FORM',
   AUDIO = 'AUDIO',
   TIMER = 'TIMER',
-  TEXT = 'TEXT'
+  TEXT = 'TEXT',
 }
 
-type ClickChallengeMetadata = object
+type ClickChallengeMetadata = object;
 
 interface FormChallengeMetadata {
-  questions: string[]
+  questions: string[];
 }
 
 interface AudioChallengeMetadata {
-  prompt: string
+  prompt: string;
 }
 
 interface TimerChallengeMetadata {
-  seconds: number
+  seconds: number;
 }
 
 interface TextChallengeMetadata {
-  prompt: string
+  prompt: string;
 }
 
 interface IChallengeBase {
-  id: string
-  title: string
-  rewardXp: number
-  createdAt: string
-  updatedAt: string
-  instructions: string
-  requiredCompletions: number
-  type: ChallengeType
-  completionCount: number
-  userId: string
-  metadata?: object
+  id: string;
+  title: string;
+  rewardXp: number;
+  createdAt: string;
+  updatedAt: string;
+  instructions: string;
+  requiredCompletions: number;
+  type: ChallengeType;
+  completionCount: number;
+  userId: string;
+  metadata?: object;
 }
 
 abstract class ChallengeBase implements IChallengeBase {
   public get metadata(): object {
-    return this._metadata
+    return this._metadata;
   }
   public set metadata(value: object) {
-    this._metadata = value
+    this._metadata = value;
   }
   constructor(
     public id: string,
@@ -56,12 +56,11 @@ abstract class ChallengeBase implements IChallengeBase {
     public type: ChallengeType,
     public completionCount: number,
     public userId: string,
-    protected _metadata: object = {}
+    protected _metadata: object = {},
   ) {}
 }
 
 export class ClickChallenge extends ChallengeBase {
-
   constructor(data: Omit<IChallengeBase, 'type'>) {
     super(
       data.id,
@@ -74,7 +73,7 @@ export class ClickChallenge extends ChallengeBase {
       ChallengeType.CLICK,
       data.completionCount,
       data.userId,
-      data.metadata ?? {}
+      data.metadata ?? {},
     );
   }
 
@@ -84,7 +83,6 @@ export class ClickChallenge extends ChallengeBase {
 }
 
 export class FormChallenge extends ChallengeBase {
-
   constructor(data: Omit<IChallengeBase, 'type'>) {
     super(
       data.id,
@@ -97,7 +95,7 @@ export class FormChallenge extends ChallengeBase {
       ChallengeType.FORM,
       data.completionCount,
       data.userId,
-      data.metadata ?? {}
+      data.metadata ?? {},
     );
   }
 
@@ -119,9 +117,8 @@ export class AudioChallenge extends ChallengeBase {
       ChallengeType.AUDIO,
       data.completionCount,
       data.userId,
-      data.metadata ?? {}
+      data.metadata ?? {},
     );
-
   }
 
   get metadata(): AudioChallengeMetadata {
@@ -130,7 +127,6 @@ export class AudioChallenge extends ChallengeBase {
 }
 
 export class TimerChallenge extends ChallengeBase {
-
   constructor(data: Omit<IChallengeBase, 'type'>) {
     super(
       data.id,
@@ -143,7 +139,7 @@ export class TimerChallenge extends ChallengeBase {
       ChallengeType.TIMER,
       data.completionCount,
       data.userId,
-      data.metadata ?? {}
+      data.metadata ?? {},
     );
   }
 
@@ -153,7 +149,6 @@ export class TimerChallenge extends ChallengeBase {
 }
 
 export class TextChallenge extends ChallengeBase {
-
   constructor(data: Omit<IChallengeBase, 'type'>) {
     super(
       data.id,
@@ -166,7 +161,7 @@ export class TextChallenge extends ChallengeBase {
       ChallengeType.TEXT,
       data.completionCount,
       data.userId,
-      data.metadata ?? {}
+      data.metadata ?? {},
     );
   }
 
@@ -180,10 +175,10 @@ export type Challenge =
   | FormChallenge
   | AudioChallenge
   | TimerChallenge
-  | TextChallenge
+  | TextChallenge;
 
 export interface ChallengeFactory {
-  createChallenge(data: IChallengeBase): Challenge
+  createChallenge(data: IChallengeBase): Challenge;
 }
 
 export class ConcreteChallengeFactory implements ChallengeFactory {
@@ -192,18 +187,18 @@ export class ConcreteChallengeFactory implements ChallengeFactory {
     [ChallengeType.FORM]: FormChallenge,
     [ChallengeType.AUDIO]: AudioChallenge,
     [ChallengeType.TIMER]: TimerChallenge,
-    [ChallengeType.TEXT]: TextChallenge
-  }
+    [ChallengeType.TEXT]: TextChallenge,
+  };
 
   createChallenge(data: IChallengeBase): Challenge {
-    const ChallengeClass = this.challengeConstructors[data.type]
+    const ChallengeClass = this.challengeConstructors[data.type];
     if (!ChallengeClass) {
-      throw new Error(`Unknown challenge type: ${data.type}`)
+      throw new Error(`Unknown challenge type: ${data.type}`);
     }
 
     return new ChallengeClass({
       ...data,
-      metadata: data.metadata ?? {}
-    })
+      metadata: data.metadata ?? {},
+    });
   }
 }
