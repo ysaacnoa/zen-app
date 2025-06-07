@@ -48,6 +48,15 @@ export const useUserStore = defineStore('user', {
 
     clearProfile(this: UserState) {
       this.profile = null
+    },
+
+    async updateProfile(this: UserState, updates: Partial<UserProfile>) {
+      if (!this.profile) return
+
+      this.loading = true
+      const updatedProfile = await userDAO.updateProfile(updates)
+      this.profile = updatedProfile
+      this.loading = false
     }
   },
 
