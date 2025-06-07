@@ -67,15 +67,5 @@ const onSubmit = handleSubmit<void>((values: FormValues) => {
 </script>
 
 <style scoped>
-.form-challenge {
-  padding: 1rem;
-}
-
-.response-input {
-  width: 100%;
-  padding: 0.5rem;
-  margin: 0.5rem 0;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
+@import './form-challenge.css';
 </style>

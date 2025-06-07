@@ -14,10 +14,6 @@
           <div>Completions: {{ challenge.completionCount }}/{{ challenge.requiredCompletions }}</div>
           <div>XP Reward: {{ challenge.rewardXp }}</div>
         </div>
-
-        <button v-if="challenge.type === 'CLICK'" class="complete-btn" @click="completeChallenge">
-          Complete Challenge
-        </button>
       </div>
 
       <div class="challenge-component">
@@ -25,6 +21,7 @@
         <text-challenge v-else-if="challenge.type === 'TEXT'" :challenge="challenge" />
         <form-challenge v-else-if="challenge.type === 'FORM'" :challenge="challenge" />
         <timer-challenge v-else-if="challenge.type === 'TIMER'" :challenge="challenge" />
+        <click-challenge v-else-if="challenge.type === 'CLICK'" :challenge="challenge" />
       </div>
     </div>
     <div v-else>
@@ -38,10 +35,11 @@ import { useRoute, useRouter } from 'vue-router'
 import { ref, onMounted } from 'vue'
 import { useChallengeStore } from '@/modules/gamification/challenges/stores/challenge.store'
 import type { Challenge } from '@/modules/gamification/challenges/models/challenge.model'
-import AudioChallenge from './components/audio-challenge.vue'
-import TextChallenge from './components/text-challenge.vue'
-import FormChallenge from './components/form-challenge.vue'
-import TimerChallenge from './components/timer-challenge.vue'
+import AudioChallenge from './components/audio-challenge'
+import TextChallenge from './components/text-challenge'
+import FormChallenge from './components/form-challenge'
+import TimerChallenge from './components/timer-challenge'
+import ClickChallenge from './components/click-challenge'
 
 const route = useRoute()
 const router = useRouter()
@@ -57,12 +55,6 @@ function goBack() {
   router.push({ name: 'challenges' })
 }
 
-async function completeChallenge() {
-  if (typeof route.params.id === 'string') {
-    await challengeStore.completeChallenge(route.params.id)
-    goBack()
-  }
-}
 </script>
 
 <style scoped>
