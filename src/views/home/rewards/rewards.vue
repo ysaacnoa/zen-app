@@ -43,7 +43,7 @@ defineOptions({
 const badgeStore = useBadgeStore()
 
 onMounted(() => {
-  badgeStore.fetchBadges()
+  badgeStore.fetchAllBadges()
 })
 </script>
 
