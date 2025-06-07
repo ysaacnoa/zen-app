@@ -16,7 +16,7 @@
         >
           <div class="card-header">
             <h3>{{ challenge.title }}</h3>
-            <div class="challenge-type">{{ challenge.type }}</div>
+            <challenge-badge :type="challenge.type" />
           </div>
 
           <div class="card-content">
@@ -46,6 +46,7 @@ import { useChallengeStore } from '@/modules/gamification/challenges/stores/chal
 import { onMounted } from 'vue'
 import { useUserStore } from '@/modules/user/stores/user.store'
 import { router } from '@/modules/routes'
+import ChallengeBadge from '@/components/ui/challenge-badge'
 
 const userStore = useUserStore()
 const challengeStore = useChallengeStore()

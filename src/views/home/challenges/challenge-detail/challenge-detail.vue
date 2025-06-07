@@ -7,7 +7,7 @@
     <div v-if="challenge" class="challenge-content">
       <div class="challenge-info">
         <h1>{{ challenge.title }}</h1>
-        <div class="challenge-type">{{ challenge.type }}</div>
+        <challenge-badge class="my-2" :type="challenge.type"/>
         <p>{{ challenge.instructions }}</p>
 
         <div class="stats">
@@ -31,6 +31,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { ref, onMounted } from 'vue'
 import { useChallengeStore } from '@/modules/gamification/challenges/stores/challenge.store'
 import type { Challenge } from '@/modules/gamification/challenges/models/challenge.model'
+import ChallengeBadge from '@/components/ui/challenge-badge'
 import { defineAsyncComponent } from 'vue'
 
 const challengeComponents = {
