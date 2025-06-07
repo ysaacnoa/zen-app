@@ -187,25 +187,23 @@ export interface ChallengeFactory {
 }
 
 export class ConcreteChallengeFactory implements ChallengeFactory {
+  private challengeConstructors = {
+    [ChallengeType.CLICK]: ClickChallenge,
+    [ChallengeType.FORM]: FormChallenge,
+    [ChallengeType.AUDIO]: AudioChallenge,
+    [ChallengeType.TIMER]: TimerChallenge,
+    [ChallengeType.TEXT]: TextChallenge
+  }
+
   createChallenge(data: IChallengeBase): Challenge {
-    // Parse metadata from instructions based on type
-    const baseData = {
-      ...data,
-      metadata: data.metadata
-    };
-    switch(data.type) {
-      case ChallengeType.CLICK:
-        return new ClickChallenge(baseData);
-      case ChallengeType.FORM:
-        return new FormChallenge(baseData);
-      case ChallengeType.AUDIO:
-        return new AudioChallenge(baseData);
-      case ChallengeType.TIMER:
-        return new TimerChallenge(baseData);
-      case ChallengeType.TEXT:
-        return new TextChallenge(baseData);
-      default:
-        throw new Error(`Unknown challenge type: ${data.type}`);
+    const ChallengeClass = this.challengeConstructors[data.type]
+    if (!ChallengeClass) {
+      throw new Error(`Unknown challenge type: ${data.type}`)
     }
+
+    return new ChallengeClass({
+      ...data,
+      metadata: data.metadata ?? {}
+    })
   }
 }
