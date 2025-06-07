@@ -1,23 +1,37 @@
 import { defineStore } from 'pinia'
-import { BadgeDAO } from '../dao/badge.dao'
-import { Badge } from '../models/badge.model'
+import { BadgeService } from '../services/badge.service'
+import { BadgeModel } from '../models/badge.model'
+
+const badgeService = new BadgeService();
 
 export const useBadgeStore = defineStore('badge', {
   state: () => ({
-    badges: [] as Badge[],
+    badges: [] as BadgeModel[],
     loading: false,
-    error: null as string | null
+    error: null as string | null,
+    userBadges: [] as BadgeModel[]
   }),
 
   actions: {
-    async fetchBadges() {
+    async fetchAllBadges() {
       this.loading = true
       this.error = null
       try {
-        const dao = new BadgeDAO()
-        this.badges = (await dao.getBadges()).reverse()
+        this.badges = await badgeService.getAllBadges()
       } catch (err) {
         this.error = err instanceof Error ? err.message : 'Failed to fetch badges'
+      } finally {
+        this.loading = false
+      }
+    },
+
+    async fetchUserBadges(userId: string) {
+      this.loading = true
+      this.error = null
+      try {
+        this.userBadges = await badgeService.getUserBadges(userId)
+      } catch (err) {
+        this.error = err instanceof Error ? err.message : 'Failed to fetch user badges'
       } finally {
         this.loading = false
       }

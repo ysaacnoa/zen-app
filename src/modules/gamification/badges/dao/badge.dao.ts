@@ -1,32 +1,37 @@
 import { z } from 'zod'
 import { ApiService } from '@/lib/api.service'
-import { Badge } from '../models/badge.model'
-
-const BadgeResponseSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  description: z.string(),
-  xpRequired: z.number(),
-  createdAt: z.string(),
-  imagePath: z.string(),
-  isActive: z.boolean()
-})
-
-const API_BASE_URL = `${import.meta.env.VITE_API_BASE_URL}`
+import { BadgeSchema } from '@/modules/gamification/badges/models/badge.model'
 
 export class BadgeDAO {
-  private apiService = new ApiService(API_BASE_URL)
+  private static instance: BadgeDAO
+  private apiService: ApiService
 
-  async getBadges(): Promise<Badge[]> {
-    const response = await this.apiService.get('/badges', z.array(BadgeResponseSchema))
-    return response.map(badge => new Badge(
-      badge.id,
-      badge.name,
-      badge.description,
-      badge.xpRequired,
-      badge.createdAt,
-      badge.imagePath,
-      badge.isActive
-    ))
+  private constructor() {
+    this.apiService = new ApiService(`${import.meta.env.VITE_API_BASE_URL}`)
+  }
+
+  public static getInstance(): BadgeDAO {
+    if (!BadgeDAO.instance) {
+      BadgeDAO.instance = new BadgeDAO()
+    }
+    return BadgeDAO.instance
+  }
+
+  async getAllBadges() {
+    try {
+      return await this.apiService.get('/badges', z.array(BadgeSchema))
+    } catch (error) {
+      console.error('Error fetching all badges:', error)
+      throw error
+    }
+  }
+
+  async getUserBadges(userId: string) {
+    try {
+      return await this.apiService.get(`/badges/user?userId=${userId}`, z.array(BadgeSchema))
+    } catch (error) {
+      console.error(`Error fetching badges for user ${userId}:`, error)
+      throw error
+    }
   }
 }
