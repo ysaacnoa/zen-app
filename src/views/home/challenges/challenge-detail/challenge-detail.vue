@@ -15,13 +15,14 @@
           <div>XP Reward: {{ challenge.rewardXp }}</div>
         </div>
 
-        <button class="complete-btn" @click="completeChallenge">
+        <button v-if="challenge.type === 'CLICK'" class="complete-btn" @click="completeChallenge">
           Complete Challenge
         </button>
       </div>
 
-      <div class="challenge-component" v-if="challenge.type === 'AUDIO'">
-        <audio-challenge :challenge="challenge" />
+      <div class="challenge-component">
+        <audio-challenge v-if="challenge.type === 'AUDIO'" :challenge="challenge" />
+        <text-challenge v-else-if="challenge.type === 'TEXT'" :challenge="challenge" />
       </div>
     </div>
     <div v-else>
@@ -36,6 +37,7 @@ import { ref, onMounted } from 'vue'
 import { useChallengeStore } from '@/modules/gamification/challenges/stores/challenge.store'
 import type { Challenge } from '@/modules/gamification/challenges/models/challenge.model'
 import AudioChallenge from './components/audio-challenge.vue'
+import TextChallenge from './components/text-challenge.vue'
 
 const route = useRoute()
 const router = useRouter()
