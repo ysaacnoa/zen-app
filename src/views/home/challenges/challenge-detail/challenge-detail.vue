@@ -23,6 +23,7 @@
       <div class="challenge-component">
         <audio-challenge v-if="challenge.type === 'AUDIO'" :challenge="challenge" />
         <text-challenge v-else-if="challenge.type === 'TEXT'" :challenge="challenge" />
+        <form-challenge v-else-if="challenge.type === 'FORM'" :challenge="challenge" />
       </div>
     </div>
     <div v-else>
@@ -38,6 +39,7 @@ import { useChallengeStore } from '@/modules/gamification/challenges/stores/chal
 import type { Challenge } from '@/modules/gamification/challenges/models/challenge.model'
 import AudioChallenge from './components/audio-challenge.vue'
 import TextChallenge from './components/text-challenge.vue'
+import FormChallenge from './components/form-challenge.vue'
 
 const route = useRoute()
 const router = useRouter()
