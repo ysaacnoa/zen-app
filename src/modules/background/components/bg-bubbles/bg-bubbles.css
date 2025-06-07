@@ -82,7 +82,7 @@
   }
 
   .g4 {
-    --color: var(--color-primary-light-rgb);
+    --color: var(--color-primary-rgb);
     top: calc(50% - var(--bubbles-circle-size) / 2 + 200px);
     left: calc(50% - var(--bubbles-circle-size) / 2 - 500px);
     transform-origin: calc(50% - 200px);
@@ -90,7 +90,7 @@
   }
 
   .g5 {
-    --color: var(--color-secondary-dark-rgb);
+    --color: var(--color-secondary-rgb);
     width: calc(var(--bubbles-circle-size) * 2);
     height: calc(var(--bubbles-circle-size) * 2);
     top: calc(50% - var(--bubbles-circle-size) / 2 + 200px);

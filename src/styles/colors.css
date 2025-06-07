@@ -1,58 +1,55 @@
 :root {
-  /* Primary colors */
-  --color-primary: oklch(60% 0.27 290);
-  --color-primary-rgb: 111, 54, 245;
-  --color-primary-light: oklch(70% 0.22 290);
-  --color-primary-light-rgb: 154, 114, 248;
-  --color-primary-lighter: oklch(85% 0.15 290);
-  --color-primary-lighter-rgb: 197, 173, 251;
-  --color-primary-dark: oklch(45% 0.25 290);
-  --color-primary-dark-rgb: 77, 28, 178;
-  --color-primary-darker: oklch(35% 0.2 290);
-  --color-primary-darker-rgb: 43, 10, 122;
+  /* Primary colors - light theme */
+  --color-primary: oklch(0.48 0.40 290);
+  --color-primary-rgb: 107, 0, 242;
+  --color-primary-container-rgb: 137, 84, 255;
 
-  /* Secondary colors */
+  /* Secondary colors - light theme */
   --color-secondary: oklch(70% 0.2 220);
-  --color-secondary-rgb: 33, 173, 238;
-  --color-secondary-light: oklch(80% 0.18 220);
-  --color-secondary-light-rgb: 95, 193, 241;
-  --color-secondary-lighter: oklch(90% 0.12 220);
-  --color-secondary-lighter-rgb: 157, 214, 245;
-  --color-secondary-dark: oklch(55% 0.18 220);
-  --color-secondary-dark-rgb: 21, 121, 176;
-  --color-secondary-darker: oklch(40% 0.15 220);
-  --color-secondary-darker-rgb: 11, 74, 110;
+  --color-secondary-rgb: 0, 178, 221;
+  --color-secondary-container-rgb: 101, 231, 255;
 
-  /* Tertiary colors */
+  /* Tertiary colors - light theme */
   --color-tertiary: oklch(80% 0.15 180);
-  --color-tertiary-rgb: 75, 209, 197;
-  --color-tertiary-light: oklch(85% 0.12 180);
-  --color-tertiary-light-rgb: 125, 224, 215;
-  --color-tertiary-lighter: oklch(92% 0.08 180);
-  --color-tertiary-lighter-rgb: 174, 236, 230;
-  --color-tertiary-dark: oklch(65% 0.13 180);
-  --color-tertiary-dark-rgb: 47, 168, 158;
-  --color-tertiary-darker: oklch(50% 0.1 180);
-  --color-tertiary-darker-rgb: 26, 109, 102;
+  --color-tertiary-rgb: 0, 220, 193;
 
-  /* Colores para fondos */
+  /* Background colors */
   --bg-blurred: linear-gradient(var(--color-primary), var(--color-tertiary));
   --bg-bubbles1: var(--color-primary);
   --bg-bubbles2: var(--color-secondary);
 
-  /* Background colors */
   --color-secondary-bg: oklch(85% 0.1 220);
   --bg-light-primary: oklch(90% 0.05 290);
   --bg-light-secondary: oklch(85% 0.05 220);
 
-  --bg-mesh-primary: var(--color-primary-light);
-  --bg-mesh-secondary: var(--color-secondary-light);
+  --bg-mesh-primary: var(--color-primary);
+  --bg-mesh-secondary: var(--color-secondary);
   --bg-motes-primary: var(--color-primary);
   --bg-motes-secondary: var(--color-secondary);
-  --bg-mouse-start: var(--color-primary-light);
-  --bg-mouse-end: var(--color-secondary-dark);
+  --bg-mouse-start: var(--color-primary);
+  --bg-mouse-end: var(--color-secondary);
 
   /* Card colors */
   --text-secondary: oklch(60% 0.05 290);
   --progress-bg: oklch(90% 0.05 290);
+}
+
+.dark {
+  /* Primary colors - dark theme */
+  --color-primary: oklch(45% 0.25 290);
+  --color-primary-rgb: 154, 114, 248;
+  --color-primary-container-rgb:204, 177, 244
+
+  /* Secondary colors - dark theme */
+  --color-secondary: oklch(55% 0.18 220);
+  --color-secondary-rgb: 95, 193, 241;
+  --color-secondary-container-rgb: 234, 241, 243
+
+  /* Tertiary colors - dark theme */
+  --color-tertiary: oklch(65% 0.13 180);
+  --color-tertiary-rgb: 125, 224, 215;
+
+  /* Dark background colors */
+  --bg-light-primary: oklch(30% 0.05 290);
+  --bg-light-secondary: oklch(25% 0.05 220);
 }
