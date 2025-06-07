@@ -13,6 +13,15 @@ export class UserDAO {
   async getProfile(): Promise<UserProfile> {
     return this.apiService.get('/me', UserProfileSchema)
   }
+
+  async updateProfile(updates: Partial<UserProfile>): Promise<UserProfile> {
+    try {
+      return await this.apiService.patch('/me', updates, UserProfileSchema)
+    } catch (error) {
+      console.error('Failed to update profile:', error)
+      throw new Error('Failed to update profile. Please try again later.')
+    }
+  }
 }
 
 export const userDAO = new UserDAO()

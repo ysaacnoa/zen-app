@@ -41,6 +41,10 @@ export class ApiService {
     return this.request<T>('DELETE', endpoint, undefined, schema)
   }
 
+  async patch<T>(endpoint: string, body: unknown, schema: z.ZodType<T>): Promise<T> {
+    return this.request<T>('PATCH', endpoint, body, schema)
+  }
+
   private buildRequestOptions(method: string, body?: unknown): RequestInit {
     return {
       method,
