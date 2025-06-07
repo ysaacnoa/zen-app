@@ -24,6 +24,7 @@
         <audio-challenge v-if="challenge.type === 'AUDIO'" :challenge="challenge" />
         <text-challenge v-else-if="challenge.type === 'TEXT'" :challenge="challenge" />
         <form-challenge v-else-if="challenge.type === 'FORM'" :challenge="challenge" />
+        <timer-challenge v-else-if="challenge.type === 'TIMER'" :challenge="challenge" />
       </div>
     </div>
     <div v-else>
@@ -40,6 +41,7 @@ import type { Challenge } from '@/modules/gamification/challenges/models/challen
 import AudioChallenge from './components/audio-challenge.vue'
 import TextChallenge from './components/text-challenge.vue'
 import FormChallenge from './components/form-challenge.vue'
+import TimerChallenge from './components/timer-challenge.vue'
 
 const route = useRoute()
 const router = useRouter()
