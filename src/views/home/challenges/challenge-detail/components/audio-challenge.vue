@@ -111,52 +111,92 @@ async function toggleRecording() {
 
 async function startRecording() {
   try {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    mediaRecorder = new MediaRecorder(stream);
-    audioChunks = [];
-    isRecording.value = true;
-
-    mediaRecorder.ondataavailable = (e) => {
-      if (e.data.size > 0) audioChunks.push(e.data);
-    };
-
-    mediaRecorder.onstop = () => {
-      const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
-      audioUrl.value = URL.createObjectURL(audioBlob);
-      stream.getTracks().forEach((track) => track.stop());
-
-      // Log audio data to console
-      console.debug('Recording stopped - audio chunks:', audioChunks.length);
-
-      const checkWaveSurfer = () => {
-        if (waveSurfer.value) {
-          waveSurfer.value.on('ready', () => {
-            const duration = waveSurfer.value?.getDuration() || 0;
-            console.debug('Audio recording data:', {
-              size: audioChunks.reduce((total, chunk) => total + chunk.size, 0) / 1000 + ' KB',
-              duration: formatTime(duration),
-              mimeType: audioBlob.type,
-              sampleRate: mediaRecorder?.audioBitsPerSecond
-                ? Math.round(mediaRecorder.audioBitsPerSecond / 16) + ' Hz'
-                : 'unknown',
-              url: audioUrl.value,
-            });
-            console.debug('WaveSurfer ready with duration:', duration);
-          });
-          waveSurfer.value.load(audioUrl.value!);
-        } else {
-          console.debug('Waiting for WaveSurfer instance...');
-          setTimeout(checkWaveSurfer, 100);
-        }
-      };
-
-      checkWaveSurfer();
-    };
-
-    mediaRecorder.start();
+    const stream = await getAudioStream();
+    setupMediaRecorder(stream);
+    mediaRecorder?.start();
   } catch (error) {
-    console.error('Error accessing microphone:', error);
+    handleRecordingError(error);
   }
+}
+
+async function getAudioStream(): Promise<MediaStream> {
+  return await navigator.mediaDevices.getUserMedia({ audio: true });
+}
+
+function setupMediaRecorder(stream: MediaStream): void {
+  mediaRecorder = new MediaRecorder(stream);
+  audioChunks = [];
+  isRecording.value = true;
+
+  mediaRecorder.ondataavailable = handleDataAvailable;
+  mediaRecorder.onstop = () => handleRecordingStop(stream);
+}
+
+function handleDataAvailable(e: BlobEvent): void {
+  if (e.data.size > 0) {
+    audioChunks.push(e.data);
+  }
+}
+
+function handleRecordingStop(stream: MediaStream): void {
+  const audioBlob = createAudioBlob();
+  audioUrl.value = URL.createObjectURL(audioBlob);
+  cleanupStream(stream);
+  logRecordingInfo(audioBlob);
+  loadRecordingToWaveSurfer();
+}
+
+function createAudioBlob(): Blob {
+  return new Blob(audioChunks, { type: 'audio/webm' });
+}
+
+function cleanupStream(stream: MediaStream): void {
+  stream.getTracks().forEach((track) => track.stop());
+}
+
+function logRecordingInfo(audioBlob: Blob): void {
+  console.debug('Recording stopped - audio chunks:', audioChunks.length);
+  const recordingInfo = {
+    size: calculateAudioSize(),
+    duration: getRecordingDuration(),
+    mimeType: audioBlob.type,
+    sampleRate: getSampleRate(),
+    url: audioUrl.value,
+  };
+  console.debug('Audio recording data:', recordingInfo);
+}
+
+function calculateAudioSize(): string {
+  return `${audioChunks.reduce((total, chunk) => total + chunk.size, 0) / 1000} KB`;
+}
+
+function getRecordingDuration(): string {
+  return formatTime(waveSurfer.value?.getDuration() || 0);
+}
+
+function getSampleRate(): string {
+  return mediaRecorder?.audioBitsPerSecond
+    ? `${Math.round(mediaRecorder.audioBitsPerSecond / 16)} Hz`
+    : 'unknown';
+}
+
+function loadRecordingToWaveSurfer(): void {
+  const checkWaveSurfer = () => {
+    if (waveSurfer.value) {
+      waveSurfer.value.on('ready', () => {
+        console.debug('WaveSurfer ready with duration:', waveSurfer.value?.getDuration());
+      });
+      waveSurfer.value.load(audioUrl.value!);
+    } else {
+      console.debug('Waiting for WaveSurfer instance...');
+      setTimeout(checkWaveSurfer, 100);
+    }
+  };
+  checkWaveSurfer();
+}
+
+function handleRecordingError(error: unknown): void {
+  console.error('Error accessing microphone:', error);
 }
 
 function stopRecording() {
@@ -190,33 +230,5 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
-.mic-circle {
-  background-color: #f0f0f0;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.mic-circle:hover {
-  background-color: #e0e0e0;
-}
-
-.mic-circle.is-recording {
-  background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
-  color: white;
-  animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 var(--color-primary);
-  }
-  70% {
-    transform: scale(1.05);
-    box-shadow: 0 0 0 10px rgba(255, 77, 77, 0);
-  }
-  100% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(255, 77, 77, 0);
-  }
-}
+@import './audio-challenge.css';
 </style>

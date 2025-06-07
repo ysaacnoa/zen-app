@@ -21,7 +21,7 @@
       </div>
 
       <div class="challenge-component" v-if="challenge.type === 'AUDIO'">
-        <AudioChallenge :challenge="challenge" />
+        <audio-challenge :challenge="challenge" />
       </div>
     </div>
     <div v-else>
@@ -35,7 +35,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { ref, onMounted } from 'vue'
 import { useChallengeStore } from '@/modules/gamification/challenges/stores/challenge.store'
 import type { Challenge } from '@/modules/gamification/challenges/models/challenge.model'
-import AudioChallenge from './components/AudioChallenge.vue'
+import AudioChallenge from './components/audio-challenge.vue'
 
 const route = useRoute()
 const router = useRouter()
