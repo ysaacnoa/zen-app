@@ -29,6 +29,7 @@ export const useChallengeStore = defineStore('challenge', {
       try {
 
         this.challenges = await service.getChallenges(userId)
+        console.debug('[CHALLENGES]', this.challenges)
         this.initialized = true
       } catch (err) {
         this.error = String(err)

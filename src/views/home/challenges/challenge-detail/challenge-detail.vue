@@ -4,19 +4,25 @@
       ← Back to Challenges
     </button>
 
-    <div v-if="challenge">
-      <h1>{{ challenge.title }}</h1>
-      <div class="challenge-type">{{ challenge.type }}</div>
-      <p>{{ challenge.instructions }}</p>
+    <div v-if="challenge" class="challenge-content">
+      <div class="challenge-info">
+        <h1>{{ challenge.title }}</h1>
+        <div class="challenge-type">{{ challenge.type }}</div>
+        <p>{{ challenge.instructions }}</p>
 
-      <div class="stats">
-        <div>Completions: {{ challenge.completionCount }}/{{ challenge.requiredCompletions }}</div>
-        <div>XP Reward: {{ challenge.rewardXp }}</div>
+        <div class="stats">
+          <div>Completions: {{ challenge.completionCount }}/{{ challenge.requiredCompletions }}</div>
+          <div>XP Reward: {{ challenge.rewardXp }}</div>
+        </div>
+
+        <button class="complete-btn" @click="completeChallenge">
+          Complete Challenge
+        </button>
       </div>
 
-      <button class="complete-btn" @click="completeChallenge">
-        Complete Challenge
-      </button>
+      <div class="challenge-component" v-if="challenge.type === 'AUDIO'">
+        <AudioChallenge :challenge="challenge" />
+      </div>
     </div>
     <div v-else>
       Loading challenge details...
@@ -29,6 +35,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { ref, onMounted } from 'vue'
 import { useChallengeStore } from '@/modules/gamification/challenges/stores/challenge.store'
 import type { Challenge } from '@/modules/gamification/challenges/models/challenge.model'
+import AudioChallenge from './components/AudioChallenge.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -54,8 +61,24 @@ async function completeChallenge() {
 
 <style scoped>
 .challenge-detail {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
+}
+
+.challenge-content {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.challenge-info {
+  flex: 1;
+  min-width: 300px;
+}
+
+.challenge-component {
+  flex: 1;
+  min-width: 400px;
 }
 
 .back-btn {

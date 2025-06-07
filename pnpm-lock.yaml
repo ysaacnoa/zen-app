@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@meersagor/wavesurfer-vue':
+        specifier: ^1.0.0
+        version: 1.0.0(typescript@5.8.3)
       '@pinia/nuxt':
         specifier: ^0.11.1
         version: 0.11.1(pinia@3.0.3(typescript@5.8.3)(vue@3.5.13(typescript@5.8.3)))
@@ -53,6 +56,9 @@ importers:
       vue-router:
         specifier: '4'
         version: 4.5.1(vue@3.5.13(typescript@5.8.3))
+      wavesurfer.js:
+        specifier: ^7.9.5
+        version: 7.9.5
       zod:
         specifier: ^3.25.13
         version: 3.25.13
@@ -511,6 +517,9 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
+
+  '@meersagor/wavesurfer-vue@1.0.0':
+    resolution: {integrity: sha512-4TrMqwWWAHvsSa6cW9xIY+Q2tUYBkYa0b3/KZGGVnnrfOVAfiWH6VVT4s2xLLlwosh6PXMiVKZ3xbmn0xs2IyA==}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -2122,6 +2131,9 @@ packages:
       typescript:
         optional: true
 
+  wavesurfer.js@7.9.5:
+    resolution: {integrity: sha512-ioOG9chuAn0bF2NYYKkZtaxjcQK/hFskLg8ViLYbJHhWPk1N5wWtuqVhqeh2ZWT2SK3t0E8UkD7lLDLuZQQaSA==}
+
   webpack-virtual-modules@0.6.2:
     resolution: {integrity: sha512-66/V2i5hQanC51vBQKPH4aI8NMAcBW59FVBs+rC7eGHupMyfn34q7rZIE+ETlJ+XTevqfUhVVBgSUNSW2flEUQ==}
 
@@ -2541,6 +2553,13 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
+
+  '@meersagor/wavesurfer-vue@1.0.0(typescript@5.8.3)':
+    dependencies:
+      vue: 3.5.13(typescript@5.8.3)
+      wavesurfer.js: 7.9.5
+    transitivePeerDependencies:
+      - typescript
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
@@ -4167,6 +4186,8 @@ snapshots:
       '@vue/shared': 3.5.13
     optionalDependencies:
       typescript: 5.8.3
+
+  wavesurfer.js@7.9.5: {}
 
   webpack-virtual-modules@0.6.2: {}
 
