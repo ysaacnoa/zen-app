@@ -82,16 +82,19 @@
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
-                <DropdownMenuItem>
-                  <span class="px-1 py-0.5">Profile</span>
+                <DropdownMenuItem @click="router.push({ name: 'profile' })">
+                  <UserIcon class="mr-2 h-4 w-4" />
+                  <span>Profile</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <span class="px-1 py-0.5">Settings</span>
+                <DropdownMenuItem @click="router.push({ name: 'settings' })">
+                  <SettingsIcon class="mr-2 h-4 w-4" />
+                  <span>Settings</span>
                 </DropdownMenuItem>
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <span class="px-1 py-0.5">Log out</span>
+              <DropdownMenuItem @click="handleLogout">
+                  <LogOutIcon class="mr-2 h-4 w-4" />
+                  <span>Log out</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -138,7 +141,10 @@ import {
   GiftIcon,
   BarChart2Icon,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  UserIcon,
+  SettingsIcon,
+  LogOutIcon
 } from 'lucide-vue-next'
 import SidebarRail from './SidebarRail.vue'
 
@@ -170,4 +176,10 @@ const initials = computed(() => {
   const [first = '', last = ''] = props.fullName.split(' ')
   return `${first.charAt(0)}${last.charAt(0)}`
 })
+
+function handleLogout() {
+  // Implement logout logic here
+  console.log('Logging out...')
+  router.push({ name: 'landing' })
+}
 </script>

@@ -7,6 +7,7 @@ import { authDAO } from '@/modules/auth/dao/auth.dao'
 declare module 'vue-router' {
   interface RouteMeta {
     requiresAuth: boolean
+    isDialog?: boolean
   }
 }
 
@@ -51,6 +52,18 @@ const router = createRouter({
           path: 'analytics',
           name: 'analytics',
           component: () => import('@/views/home/analytics')
+        },
+        {
+          path: 'profile',
+          name: 'profile',
+          component: () => import('@/views/home/profile'),
+          meta: { requiresAuth: true, isDialog: true }
+        },
+        {
+          path: 'settings',
+          name: 'settings',
+          component: () => import('@/views/home/settings'),
+          meta: { requiresAuth: true, isDialog: true }
         }
       ]
     },
