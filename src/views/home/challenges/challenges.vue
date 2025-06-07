@@ -68,5 +68,5 @@ async function viewChallenge(challengeId: string) {
 </script>
 
 <style scoped>
-@import './index.css';
+@import './challenges.css';
 </style>

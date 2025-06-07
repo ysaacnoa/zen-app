@@ -69,7 +69,7 @@
                 </Avatar>
                 <div v-if="isExpanded" class="ml-3 text-left">
                   <p class="text-sm font-medium">{{ fullName }}</p>
-                  <p class="text-xs text-gray-500">{{ email }}</p>
+                  <p class="text-xs">{{ email }}</p>
                 </div>
               </SidebarMenuButton>
             </DropdownMenuTrigger>

@@ -1,7 +1,7 @@
 <template>
   <Dialog :open="true" @update:open="handleClose">
     <DialogContent>
-      <DialogHeader>
+      <DialogHeader class="text-foreground">
         <DialogTitle>Profile</DialogTitle>
         <DialogDescription>
           Update your profile information
@@ -9,7 +9,7 @@
       </DialogHeader>
 
       <Form @submit="handleSubmit">
-        <div class="grid gap-4 py-4">
+        <div class="text-foreground grid gap-4 py-4">
           <!-- User Info Section -->
           <div class="flex items-center gap-6 mb-6">
             <div class="flex-1">
@@ -82,7 +82,7 @@
         </div>
 
         <DialogFooter>
-          <Button variant="outline" @click="handleClose">Cancel</Button>
+          <Button  class="text-foreground" variant="outline" @click="handleClose">Cancel</Button>
           <Button class="bg-gradient" type="submit">Save</Button>
         </DialogFooter>
       </Form>

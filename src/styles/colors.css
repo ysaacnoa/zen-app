@@ -53,7 +53,6 @@
   --bg-mouse-end: var(--color-secondary-dark);
 
   /* Card colors */
-  --card-bg: oklch(95% 0.01 290);
   --text-secondary: oklch(60% 0.05 290);
   --progress-bg: oklch(90% 0.05 290);
 }

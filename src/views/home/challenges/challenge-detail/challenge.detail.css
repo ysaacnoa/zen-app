@@ -12,6 +12,7 @@
 .challenge-info {
   flex: 1;
   min-width: 300px;
+  color: var(--color-foreground);
 }
 
 .challenge-component {
@@ -22,14 +23,14 @@
 .back-btn {
   background: none;
   border: none;
-  color: #666;
+  color: var(--muted-foreground);
   cursor: pointer;
   margin-bottom: 1rem;
   padding: 0.5rem;
 }
 
 .back-btn:hover {
-  color: #333;
+  color: var(--color-foreground);
 }
 
 .complete-btn {
@@ -48,11 +49,7 @@
 
 .stats {
   margin: 1rem 0;
-  color: #666;
 }
-
-.challenge-type {
-  font-weight: bold;
-  color: #666;
-  margin-bottom: 1rem;
+.stats > * {
+  color: var(--muted-foreground);
 }

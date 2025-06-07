@@ -56,7 +56,7 @@ onMounted(() => {
 }
 
 .badge-card {
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--primary);
   border-radius: 0.5rem;
   padding: 1rem;
   transition: all 0.2s;
@@ -85,6 +85,7 @@ onMounted(() => {
 .badge-info {
   margin-top: 1rem;
   text-align: center;
+  color: var(--color-foreground);
 }
 
 .xp-required {
