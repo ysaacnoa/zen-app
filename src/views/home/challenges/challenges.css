@@ -55,6 +55,26 @@
   transform: translateY(-5px);
 }
 
+.challenge-card.disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.challenge-card.disabled:hover {
+  transform: none;
+}
+
+.challenge-card.disabled::before {
+  opacity: 0.1;
+}
+
+.lock-icon {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: var(--muted-foreground);
+}
+
 .card-header {
   display: flex;
   justify-content: space-between;

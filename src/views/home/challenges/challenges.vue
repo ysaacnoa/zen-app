@@ -11,12 +11,24 @@
           v-for="challenge in challengeStore.pendingChallenges"
           :key="challenge.id"
           class="challenge-card"
-          :class="`type-${challenge.type.toLowerCase()}`"
-          @click="viewChallenge(challenge.id)"
+          :class="[`type-${challenge.type.toLowerCase()}`, { 'disabled': !challenge.isActive }]"
+          @click="challenge.isActive ? viewChallenge(challenge.id) : null"
         >
           <div class="card-header">
             <h3>{{ challenge.title }}</h3>
-            <challenge-badge :type="challenge.type" />
+            <div class="flex items-center gap-2">
+              <challenge-badge :type="challenge.type" />
+              <TooltipProvider>
+              <Tooltip v-if="!challenge.isActive">
+                <TooltipTrigger as-child>
+                  <ClockIcon class="w-4 h-4 text-muted-foreground" />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Disponible nuevamente mañana</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+            </div>
           </div>
 
           <div class="card-content">
@@ -47,6 +59,13 @@ import { onMounted } from 'vue'
 import { useUserStore } from '@/modules/user/stores/user.store'
 import { router } from '@/modules/routes'
 import ChallengeBadge from '@/components/ui/challenge-badge'
+import { ClockIcon } from 'lucide-vue-next'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
+import TooltipProvider from '@/components/ui/tooltip/TooltipProvider.vue'
 
 const userStore = useUserStore()
 const challengeStore = useChallengeStore()
