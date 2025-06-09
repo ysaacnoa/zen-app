@@ -5,7 +5,7 @@
       <!-- Main Content -->
       <div class="app-content">
         <BackgroundSelector v-model="selectedBackground" :options="backgroundOptions" />
-        <!-- <router-view /> -->
+        <router-view />
       </div>
     </component>
   </div>
