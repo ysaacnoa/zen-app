@@ -74,7 +74,7 @@
               </SidebarMenuButton>
             </DropdownMenuTrigger>
             <DropdownMenuContent
-              class="w-56 p-1"
+              class="w-56 p-1 glass-light text-foreground"
               :side="!isExpanded ? 'bottom' : 'right'"
               align="end"
               :side-offset="4"

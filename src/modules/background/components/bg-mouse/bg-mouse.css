@@ -5,7 +5,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--bg-mouse);
   backdrop-filter: blur(50px);
   pointer-events: none;
 }

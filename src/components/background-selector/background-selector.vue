@@ -1,11 +1,11 @@
 <template>
-  <DropdownMenu>
+  <DropdownMenu class="glass-light text-foreground">
     <DropdownMenuTrigger as-child>
-      <button class="bg-selector-trigger">
+      <button class="bg-selector-trigger glass-light text-foreground">
         <Palette class="w-5 h-5" />
       </button>
     </DropdownMenuTrigger>
-    <DropdownMenuContent class="bg-selector-content">
+    <DropdownMenuContent align="start" class="glass-light text-foreground">
       <DropdownMenuItem
         v-for="(option, index) in options"
         :key="index"

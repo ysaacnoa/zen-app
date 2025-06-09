@@ -26,8 +26,9 @@
   --bg-mesh-secondary: var(--color-secondary);
   --bg-motes-primary: var(--color-primary);
   --bg-motes-secondary: var(--color-secondary);
-  --bg-mouse-start: var(--color-primary);
-  --bg-mouse-end: var(--color-secondary);
+  --bg-mouse: rgba(255, 255, 255, 0.1);
+  --bg-mouse-start: rgba(var(--color-primary-rgb));
+  --bg-mouse-end: rgba(var(--color-secondary-rgb));
 
   /* Card colors */
   --text-secondary: oklch(60% 0.05 290);
@@ -52,4 +53,6 @@
   /* Dark background colors */
   --bg-light-primary: oklch(30% 0.05 290);
   --bg-light-secondary: oklch(25% 0.05 220);
+
+  --bg-mouse: rgba(0, 0, 0, 0.1);
 }
