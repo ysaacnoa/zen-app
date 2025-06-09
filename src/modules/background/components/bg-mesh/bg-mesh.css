@@ -73,7 +73,7 @@
 }
 
 .bg-colors-primary {
-  background-color: var(--bg-mesh-primary);
+  background-color: var(--color-primary);
 }
 
 .bg-colors-teal {

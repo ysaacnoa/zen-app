@@ -7,7 +7,7 @@
     <div v-if="challenge" class="challenge-content">
       <div class="challenge-info">
         <h1>{{ challenge.title }}</h1>
-        <div class="challenge-type">{{ challenge.type }}</div>
+        <challenge-badge class="my-2" :type="challenge.type"/>
         <p>{{ challenge.instructions }}</p>
 
         <div class="stats">
@@ -17,20 +17,33 @@
       </div>
 
       <div class="challenge-component">
-        <component :is="challengeComponents[challenge.type]" :challenge="challenge" />
+        <component
+          :is="challengeComponents[challenge.type]"
+          :challenge="challenge"
+          @open-complete-challenge="handleCompleteChallenge"
+        />
       </div>
     </div>
     <div v-else>
       Loading challenge details...
     </div>
+
+    <ChallengeRewardModal
+      v-if="challenge"
+      :challenge="challenge"
+      :isOpen="showRewardModal"
+      @update:open="showRewardModal = $event"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
 import { ref, onMounted } from 'vue'
+import ChallengeRewardModal from './challenge-reward-modal.vue'
 import { useChallengeStore } from '@/modules/gamification/challenges/stores/challenge.store'
 import type { Challenge } from '@/modules/gamification/challenges/models/challenge.model'
+import ChallengeBadge from '@/components/ui/challenge-badge'
 import { defineAsyncComponent } from 'vue'
 
 const challengeComponents = {
@@ -45,14 +58,31 @@ const route = useRoute()
 const router = useRouter()
 const challengeStore = useChallengeStore()
 const challenge = ref<Challenge | null>(null)
+const showRewardModal = ref(false)
 
 onMounted(async () => {
   const challenges = await challengeStore.ensureChallenges(route.params.id as string)
   challenge.value = challenges.find(c => c.id === route.params.id) || null
 })
 
-function goBack() {
+async function goBack() {
   router.push({ name: 'challenges' })
+}
+
+async function handleCompleteChallenge(payload: unknown) {
+  const data = payload as object;
+  if (challenge.value) {
+    const updatedChallenge = await challengeStore.completeChallenge(challenge.value.userId, challenge.value.id, [data])
+    if (updatedChallenge) {
+      challenge.value = {
+        ...challenge.value,
+        completionCount: updatedChallenge.currentCompletions,
+        isCompleted: updatedChallenge.currentCompletions === challenge.value.requiredCompletions,
+        lastCompletionDate: updatedChallenge.completedAt
+      }
+    }
+    showRewardModal.value = true
+  }
 }
 
 </script>

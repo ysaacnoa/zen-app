@@ -20,15 +20,19 @@ export const useChallengeStore = defineStore('challenge', {
   }),
 
   actions: {
-    async fetchChallenges(userId: string) {
-      if (this.initialized) return
+    async fetchChallenges(userId: string, forceRefresh = false) {
+      if (this.initialized && !forceRefresh) return
       if (this.loading) return
 
       this.loading = true
       this.error = null
       try {
+        if (forceRefresh) {
+          this.initialized = false
+        }
 
         this.challenges = await service.getChallenges(userId)
+        console.log('Challenges received:', JSON.stringify(this.challenges, null, 2))
         console.debug('[CHALLENGES]', this.challenges)
         this.initialized = true
       } catch (err) {
@@ -45,13 +49,10 @@ export const useChallengeStore = defineStore('challenge', {
       return this.challenges
     },
 
-    async completeChallenge(challengeId: string) {
+    async completeChallenge(userId: string, challengeId: string, metadata: object[]) {
       this.loading = true
       try {
-        const updatedChallenge = await service.completeChallenge(challengeId)
-        this.challenges = this.challenges.map(c =>
-          c.id === challengeId ? updatedChallenge : c
-        )
+        return await service.completeChallenge(userId, challengeId, metadata)
       } catch (err) {
         this.error = String(err)
       } finally {

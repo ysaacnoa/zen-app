@@ -17,6 +17,7 @@
   overflow: hidden;
   transition: transform 0.2s;
   isolation: isolate;
+  color: var(--color-foreground);
 }
 
 .challenge-card::before {
@@ -54,6 +55,26 @@
   transform: translateY(-5px);
 }
 
+.challenge-card.disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.challenge-card.disabled:hover {
+  transform: none;
+}
+
+.challenge-card.disabled::before {
+  opacity: 0.1;
+}
+
+.lock-icon {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: var(--muted-foreground);
+}
+
 .card-header {
   display: flex;
   justify-content: space-between;
@@ -66,15 +87,6 @@
   font-size: 1.2rem;
 }
 
-.challenge-type {
-  background: var(--type-bg);
-  color: white;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  text-transform: capitalize;
-}
-
 .card-content {
   margin-bottom: 1.5rem;
 }
@@ -82,7 +94,7 @@
 .stats {
   margin-top: 1rem;
   font-size: 0.9rem;
-  color: var(--text-secondary);
+  color: var(--muted-foreground);
 }
 
 .progress-bar {
@@ -95,7 +107,7 @@
 
 .progress-fill {
   height: 100%;
-  background: var(--progress-fill);
+  background: color-mix(in srgb, var(--type-bg) 45%, transparent);
   transition: width 0.3s ease;
 }
 

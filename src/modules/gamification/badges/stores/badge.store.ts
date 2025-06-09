@@ -17,7 +17,7 @@ export const useBadgeStore = defineStore('badge', {
       this.loading = true
       this.error = null
       try {
-        this.badges = await badgeService.getAllBadges()
+        this.badges = (await badgeService.getAllBadges()).reverse()
       } catch (err) {
         this.error = err instanceof Error ? err.message : 'Failed to fetch badges'
       } finally {

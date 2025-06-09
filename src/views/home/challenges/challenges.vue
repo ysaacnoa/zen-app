@@ -7,35 +7,18 @@
         {{ challengeStore.error }}
       </div>
       <div v-else class="challenges-grid">
-        <div
+        <challenge-card
           v-for="challenge in challengeStore.pendingChallenges"
           :key="challenge.id"
-          class="challenge-card"
-          :class="`type-${challenge.type.toLowerCase()}`"
-          @click="viewChallenge(challenge.id)"
-        >
-          <div class="card-header">
-            <h3>{{ challenge.title }}</h3>
-            <div class="challenge-type">{{ challenge.type }}</div>
-          </div>
-
-          <div class="card-content">
-            <p>{{ challenge.instructions }}</p>
-            <div class="stats">
-              <div>Completions: {{ challenge.completionCount }}/{{ challenge.requiredCompletions }}</div>
-              <div>XP Reward: {{ challenge.rewardXp }}</div>
-            </div>
-          </div>
-
-          <div class="card-footer">
-            <div class="progress-bar">
-              <div
-                class="progress-fill"
-                :style="{ width: `${(challenge.completionCount / challenge.requiredCompletions) * 100}%` }"
-              ></div>
-            </div>
-          </div>
-        </div>
+          :challenge="challenge"
+          @click="viewChallenge"
+        />
+        <challenge-card
+          v-for="challenge in challengeStore.completedChallenges"
+          :key="challenge.id"
+          :challenge="challenge"
+          @click="viewChallenge"
+        />
       </div>
     </template>
   </div>
@@ -46,6 +29,7 @@ import { useChallengeStore } from '@/modules/gamification/challenges/stores/chal
 import { onMounted } from 'vue'
 import { useUserStore } from '@/modules/user/stores/user.store'
 import { router } from '@/modules/routes'
+import ChallengeCard from '@/components/ui/challenge-card'
 
 const userStore = useUserStore()
 const challengeStore = useChallengeStore()
@@ -61,11 +45,13 @@ onMounted(async () => {
   }
 })
 
+// Watcher removed - store updates are handled by the store's actions
+
 async function viewChallenge(challengeId: string) {
   await router.push({name: 'challenge-detail', params:{id: challengeId}})
 }
 </script>
 
 <style scoped>
-@import './index.css';
+@import './challenges.css';
 </style>

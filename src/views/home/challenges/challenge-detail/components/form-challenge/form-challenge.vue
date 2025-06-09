@@ -1,5 +1,5 @@
 <template>
-  <div class="form-challenge">
+  <div class="text-foreground form-challenge">
     <form @submit="onSubmit" class="space-y-4">
       <div v-for="(question, index) in formChallenge.metadata.questions" :key="index">
         <FormField v-slot="{ componentField }" :name="`q${index + 1}`">
@@ -60,8 +60,21 @@ interface FormValues {
   q4: string;
 }
 
+const emit = defineEmits<{
+  (e: 'open-complete-challenge', payload: object): void
+}>()
+
 const onSubmit = handleSubmit<void>((values: FormValues) => {
   console.log('Form answers:', values)
+
+  const payload = {
+    answer1: values.q1,
+    answer2: values.q2,
+    answer3: values.q3,
+    answer4: values.q4
+  }
+
+  emit('open-complete-challenge', payload)
   return Promise.resolve()
 })
 </script>

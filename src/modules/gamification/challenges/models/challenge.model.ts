@@ -36,6 +36,9 @@ interface IChallengeBase {
   completionCount: number;
   userId: string;
   metadata?: object;
+  isActive: boolean;
+  lastCompletionDate: string | null;
+  isCompleted: boolean;
 }
 
 abstract class ChallengeBase implements IChallengeBase {
@@ -57,6 +60,9 @@ abstract class ChallengeBase implements IChallengeBase {
     public completionCount: number,
     public userId: string,
     protected _metadata: object = {},
+    public isActive: boolean = true,
+    public lastCompletionDate: string | null = null,
+    public isCompleted: boolean = false,
   ) {}
 }
 
@@ -74,6 +80,9 @@ export class ClickChallenge extends ChallengeBase {
       data.completionCount,
       data.userId,
       data.metadata ?? {},
+      data.isActive,
+      data.lastCompletionDate,
+      data.isCompleted
     );
   }
 
@@ -96,6 +105,9 @@ export class FormChallenge extends ChallengeBase {
       data.completionCount,
       data.userId,
       data.metadata ?? {},
+      data.isActive,
+      data.lastCompletionDate,
+      data.isCompleted
     );
   }
 
@@ -118,6 +130,9 @@ export class AudioChallenge extends ChallengeBase {
       data.completionCount,
       data.userId,
       data.metadata ?? {},
+      data.isActive,
+      data.lastCompletionDate,
+      data.isCompleted
     );
   }
 
@@ -140,6 +155,9 @@ export class TimerChallenge extends ChallengeBase {
       data.completionCount,
       data.userId,
       data.metadata ?? {},
+      data.isActive,
+      data.lastCompletionDate,
+      data.isCompleted
     );
   }
 
@@ -162,6 +180,9 @@ export class TextChallenge extends ChallengeBase {
       data.completionCount,
       data.userId,
       data.metadata ?? {},
+      data.isActive,
+      data.lastCompletionDate,
+      data.isCompleted
     );
   }
 
@@ -199,6 +220,9 @@ export class ConcreteChallengeFactory implements ChallengeFactory {
     return new ChallengeClass({
       ...data,
       metadata: data.metadata ?? {},
+      isActive: data.isActive ?? true,
+      lastCompletionDate: data.lastCompletionDate ?? null,
+      isCompleted: data.isCompleted ?? false
     });
   }
 }

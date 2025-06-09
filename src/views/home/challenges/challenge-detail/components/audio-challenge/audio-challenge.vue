@@ -36,6 +36,25 @@
         <Trash2Icon class="h-5 w-5" />
       </button>
     </div>
+
+    <!-- Complete Challenge Button -->
+    <button
+      v-if="audioUrl"
+      @click="handleCompleteChallenge"
+      class="mt-4 px-4 py-2 rounded-lg bg-gradient text-white font-medium hover:opacity-90 transition-opacity"
+    >
+      Complete Challenge
+    </button>
+
+    <!-- Audio Test Element -->
+    <audio
+      v-if="audioUrl"
+      ref="audioPlayer"
+      controls
+      class="mt-4"
+    >
+      <source :src="audioUrl" type="audio/webm">
+    </audio>
   </div>
 </template>
 
@@ -45,6 +64,9 @@ import { MicIcon, PlayIcon, PauseIcon, Trash2Icon } from 'lucide-vue-next';
 import type WaveSurfer from 'wavesurfer.js';
 import { WaveSurferPlayer } from '@meersagor/wavesurfer-vue';
 
+const emit = defineEmits<{
+  (e: 'open-complete-challenge', payload: object): void
+}>()
 const waveformRef = ref<HTMLElement | null>(null);
 const isRecording = ref(false);
 const audioUrl = ref<string | null>(null);
@@ -52,6 +74,7 @@ const isPlaying = ref(false);
 const currentTime = ref<string>('00:00');
 const totalDuration = ref<string>('00:00');
 const waveSurfer = ref<WaveSurfer | null>(null);
+const audioPlayer = ref<HTMLAudioElement | null>(null);
 let mediaRecorder: MediaRecorder | null = null;
 let audioChunks: Blob[] = [];
 
@@ -141,6 +164,11 @@ function handleDataAvailable(e: BlobEvent): void {
 function handleRecordingStop(stream: MediaStream): void {
   const audioBlob = createAudioBlob();
   audioUrl.value = URL.createObjectURL(audioBlob);
+
+  if (audioPlayer.value) {
+    audioPlayer.value.src = audioUrl.value;
+  }
+
   cleanupStream(stream);
   logRecordingInfo(audioBlob);
   loadRecordingToWaveSurfer();
@@ -216,9 +244,30 @@ function deleteRecording() {
   }
 }
 
+async function handleCompleteChallenge() {
+  if (!audioUrl.value) return;
+
+  const metadata = {
+    duration: waveSurfer.value?.getDuration() || 0,
+    audio: audioUrl.value,
+    sampleRate: mediaRecorder?.audioBitsPerSecond
+      ? Math.round(mediaRecorder.audioBitsPerSecond / 16)
+      : null
+  };
+
+  emit('open-complete-challenge', {
+    audio: audioUrl.value,
+    metadata
+  });
+}
+
 onBeforeUnmount(() => {
   if (mediaRecorder && isRecording.value) {
     mediaRecorder.stop();
+  }
+  if (audioPlayer.value) {
+    audioPlayer.value.pause();
+    audioPlayer.value.src = '';
   }
   if (audioUrl.value) {
     URL.revokeObjectURL(audioUrl.value);

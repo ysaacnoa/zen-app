@@ -1,5 +1,6 @@
 import { ApiService } from '@/lib/api.service'
 import { ChallengeType } from '../models/challenge.model'
+import { challengeCompletionSchema } from '../models/challenge-completion.model'
 import { z } from 'zod'
 
 const challengeResponseSchema = z.object({
@@ -13,7 +14,10 @@ const challengeResponseSchema = z.object({
   type: z.nativeEnum(ChallengeType),
   completionCount: z.number(),
   userId: z.string(),
-  metadata: z.record(z.unknown()).optional()
+  metadata: z.record(z.unknown()).optional(),
+  isActive: z.boolean(),
+  lastCompletionDate: z.string().nullable(),
+  isCompleted: z.boolean()
 })
 
 export class ChallengeDAO {
@@ -38,16 +42,16 @@ export class ChallengeDAO {
     }
   }
 
-  async completeChallenge(challengeId: string) {
+  async completeChallenge(userId: string, challengeId: string, metadata: object[]) {
     try {
       return await this.apiService.post(
-        `/challenges/${challengeId}/complete`,
-        {},
-        challengeResponseSchema
-      )
+        `/challenges/complete`,
+        { userId, challengeId, metadata },
+        challengeCompletionSchema
+      );
     } catch (error) {
-      console.error('Failed to complete challenge:', error)
-      throw error
+      console.error('Failed to complete challenge:', error);
+      throw error;
     }
   }
 }

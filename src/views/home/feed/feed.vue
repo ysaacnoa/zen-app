@@ -6,7 +6,7 @@
       <div
         v-for="recommendation in recommendationStore.recommendations"
         :key="recommendation.id"
-        class="recommendation"
+        class="recommendation text-foreground"
         v-html="renderMarkdown(recommendation.content)"
       />
     </div>

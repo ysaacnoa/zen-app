@@ -69,12 +69,12 @@
                 </Avatar>
                 <div v-if="isExpanded" class="ml-3 text-left">
                   <p class="text-sm font-medium">{{ fullName }}</p>
-                  <p class="text-xs text-gray-500">{{ email }}</p>
+                  <p class="text-xs">{{ email }}</p>
                 </div>
               </SidebarMenuButton>
             </DropdownMenuTrigger>
             <DropdownMenuContent
-              class="w-56 p-1"
+              class="w-56 p-1 glass-light text-foreground"
               :side="!isExpanded ? 'bottom' : 'right'"
               align="end"
               :side-offset="4"
