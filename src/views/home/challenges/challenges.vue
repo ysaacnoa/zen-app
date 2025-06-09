@@ -7,47 +7,18 @@
         {{ challengeStore.error }}
       </div>
       <div v-else class="challenges-grid">
-        <div
+        <challenge-card
           v-for="challenge in challengeStore.pendingChallenges"
           :key="challenge.id"
-          class="challenge-card"
-          :class="[`type-${challenge.type.toLowerCase()}`, { 'disabled': !challenge.isActive }]"
-          @click="challenge.isActive ? viewChallenge(challenge.id) : null"
-        >
-          <div class="card-header">
-            <h3>{{ challenge.title }}</h3>
-            <div class="flex items-center gap-2">
-              <challenge-badge :type="challenge.type" />
-              <TooltipProvider>
-              <Tooltip v-if="!challenge.isActive">
-                <TooltipTrigger as-child>
-                  <ClockIcon class="w-4 h-4 text-muted-foreground" />
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Disponible nuevamente mañana</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            </div>
-          </div>
-
-          <div class="card-content">
-            <p>{{ challenge.instructions }}</p>
-            <div class="stats">
-              <div>Completions: {{ challenge.completionCount }}/{{ challenge.requiredCompletions }}</div>
-              <div>XP Reward: {{ challenge.rewardXp }}</div>
-            </div>
-          </div>
-
-          <div class="card-footer">
-            <div class="progress-bar">
-              <div
-                class="progress-fill"
-                :style="{ width: `${(challenge.completionCount / challenge.requiredCompletions) * 100}%` }"
-              ></div>
-            </div>
-          </div>
-        </div>
+          :challenge="challenge"
+          @click="viewChallenge"
+        />
+        <challenge-card
+          v-for="challenge in challengeStore.completedChallenges"
+          :key="challenge.id"
+          :challenge="challenge"
+          @click="viewChallenge"
+        />
       </div>
     </template>
   </div>
@@ -58,14 +29,7 @@ import { useChallengeStore } from '@/modules/gamification/challenges/stores/chal
 import { onMounted } from 'vue'
 import { useUserStore } from '@/modules/user/stores/user.store'
 import { router } from '@/modules/routes'
-import ChallengeBadge from '@/components/ui/challenge-badge'
-import { ClockIcon } from 'lucide-vue-next'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '@/components/ui/tooltip'
-import TooltipProvider from '@/components/ui/tooltip/TooltipProvider.vue'
+import ChallengeCard from '@/components/ui/challenge-card'
 
 const userStore = useUserStore()
 const challengeStore = useChallengeStore()

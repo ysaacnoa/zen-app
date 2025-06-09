@@ -25,6 +25,9 @@ export class CanvasMouseAnimation {
     friction: 0.5,
   };
 
+  private currentTheme = document.documentElement.classList.contains('dark');
+  private observer!: MutationObserver;
+
   /**
    * Creates an instance of CanvasMouseAnimation
    * @param {HTMLCanvasElement} canvas - The canvas element to draw on
@@ -32,6 +35,16 @@ export class CanvasMouseAnimation {
   constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d')!;
+
+    // Observe theme changes
+    this.observer = new MutationObserver(() => {
+      this.currentTheme = document.documentElement.classList.contains('dark');
+    });
+    this.observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+
     this.init();
   }
 
@@ -98,6 +111,9 @@ export class CanvasMouseAnimation {
    * @param {number} t - Timestamp for animation frame
    */
   private update(t: number) {
+    // Force redraw on theme change by clearing the canvas first
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
     if (!this.mouseMoved) {
       this.pointer.x = (0.5 + 0.3 * Math.cos(0.002 * t) * Math.sin(0.005 * t)) * window.innerWidth;
       this.pointer.y =
@@ -131,11 +147,17 @@ export class CanvasMouseAnimation {
    * Draws the trail on the canvas with a gradient stroke
    */
   private drawTrail() {
+    // Set background color based on theme
+    this.ctx.fillStyle = this.currentTheme ? '#000000' : '#ffffff';
+    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+    // Use reactive theme state for trail colors
+    const mouseStart = this.currentTheme ? 'rgba(154, 114, 248, 0.5)' : 'oklch(0.48 0.40 290)';
+    const mouseEnd = this.currentTheme ? 'rgba(95, 193, 241, 0.5)'  : 'oklch(70% 0.2 220)';
+
     const gradient = this.ctx.createLinearGradient(0, 0, this.canvas.width, this.canvas.height);
-    gradient.addColorStop(0, getComputedStyle(document.documentElement)
-      .getPropertyValue('--bg-mouse-start').trim());
-    gradient.addColorStop(1, getComputedStyle(document.documentElement)
-      .getPropertyValue('--bg-mouse-end').trim());
+    gradient.addColorStop(0, mouseStart);
+    gradient.addColorStop(1, mouseEnd);
 
     this.ctx.strokeStyle = gradient;
     this.ctx.lineCap = 'round';
@@ -158,5 +180,6 @@ export class CanvasMouseAnimation {
     if (this.animationFrame) {
       window.cancelAnimationFrame(this.animationFrame);
     }
+    this.observer?.disconnect();
   }
 }

@@ -22,11 +22,10 @@
   --bg-light-primary: oklch(90% 0.05 290);
   --bg-light-secondary: oklch(85% 0.05 220);
 
-  --bg-mesh-primary: var(--color-primary);
-  --bg-mesh-secondary: var(--color-secondary);
   --bg-motes-primary: var(--color-primary);
   --bg-motes-secondary: var(--color-secondary);
   --bg-mouse: rgba(255, 255, 255, 0.1);
+  /* bg mouse */
   --bg-mouse-start: rgba(var(--color-primary-rgb));
   --bg-mouse-end: rgba(var(--color-secondary-rgb));
 
@@ -39,12 +38,12 @@
   /* Primary colors - dark theme */
   --color-primary: oklch(45% 0.25 290);
   --color-primary-rgb: 154, 114, 248;
-  --color-primary-container-rgb:204, 177, 244
+  --color-primary-container-rgb:204, 177, 244;
 
   /* Secondary colors - dark theme */
   --color-secondary: oklch(55% 0.18 220);
   --color-secondary-rgb: 95, 193, 241;
-  --color-secondary-container-rgb: 234, 241, 243
+  --color-secondary-container-rgb: 234, 241, 243;
 
   /* Tertiary colors - dark theme */
   --color-tertiary: oklch(65% 0.13 180);
