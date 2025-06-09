@@ -36,6 +36,15 @@
         <Trash2Icon class="h-5 w-5" />
       </button>
     </div>
+
+    <!-- Complete Challenge Button -->
+    <button
+      v-if="audioUrl"
+      @click="$emit('open-complete-challenge')"
+      class="mt-4 px-4 py-2 rounded-lg bg-gradient text-white font-medium hover:opacity-90 transition-opacity"
+    >
+      Complete Challenge
+    </button>
   </div>
 </template>
 

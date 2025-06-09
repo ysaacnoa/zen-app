@@ -17,18 +17,30 @@
       </div>
 
       <div class="challenge-component">
-        <component :is="challengeComponents[challenge.type]" :challenge="challenge" />
+        <component
+          :is="challengeComponents[challenge.type]"
+          :challenge="challenge"
+          @open-complete-challenge="handleCompleteChallenge"
+        />
       </div>
     </div>
     <div v-else>
       Loading challenge details...
     </div>
+
+    <ChallengeRewardModal
+      v-if="challenge"
+      :challenge="challenge"
+      :isOpen="showRewardModal"
+      @update:open="showRewardModal = $event"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
 import { ref, onMounted } from 'vue'
+import ChallengeRewardModal from './challenge-reward-modal.vue'
 import { useChallengeStore } from '@/modules/gamification/challenges/stores/challenge.store'
 import type { Challenge } from '@/modules/gamification/challenges/models/challenge.model'
 import ChallengeBadge from '@/components/ui/challenge-badge'
@@ -46,6 +58,7 @@ const route = useRoute()
 const router = useRouter()
 const challengeStore = useChallengeStore()
 const challenge = ref<Challenge | null>(null)
+const showRewardModal = ref(false)
 
 onMounted(async () => {
   const challenges = await challengeStore.ensureChallenges(route.params.id as string)
@@ -54,6 +67,17 @@ onMounted(async () => {
 
 function goBack() {
   router.push({ name: 'challenges' })
+}
+
+function handleCompleteChallenge() {
+  if (challenge.value) {
+    // Increment completion count for the progress animation
+    challenge.value.completionCount = Math.min(
+      challenge.value.completionCount + 1,
+      challenge.value.requiredCompletions
+    )
+    showRewardModal.value = true
+  }
 }
 
 </script>

@@ -33,6 +33,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onUnmounted } from 'vue'
+const emit = defineEmits(['open-complete-challenge'])
 import { TimerChallenge } from '@/modules/gamification/challenges/models/challenge.model'
 import { PlayIcon, PauseIcon, RefreshCwIcon } from 'lucide-vue-next'
 
@@ -96,6 +97,7 @@ function toggleTimer() {
 
 function completeChallenge() {
   console.log(`Challenge completed in ${formattedTime.value}`)
+  emit('open-complete-challenge')
 }
 
 onUnmounted(() => {

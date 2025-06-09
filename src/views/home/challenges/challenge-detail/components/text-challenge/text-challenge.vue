@@ -1,5 +1,5 @@
 <template>
-  <div class="text-challenge">
+  <div class="text-foreground text-challenge">
     <form @submit="onSubmit" class="space-y-4">
       <FormField v-slot="{ componentField }" name="response">
         <FormItem>
@@ -50,8 +50,11 @@ const { handleSubmit } = useForm({
   validationSchema: formSchema
 })
 
+const emit = defineEmits(['open-complete-challenge'])
+
 const onSubmit = handleSubmit((values) => {
   console.log('Challenge response:', values.response)
+  emit('open-complete-challenge')
   return Promise.resolve()
 })
 </script>

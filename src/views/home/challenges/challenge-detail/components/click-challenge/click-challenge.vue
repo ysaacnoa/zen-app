@@ -1,5 +1,5 @@
 <template>
-  <div class="click-challenge">
+  <div class="text-foreground click-challenge">
     <div class="motivation-message">
       <p>🎉 ¡Confiamos en ti! 🎉</p>
       <p>Sabemos que estás cumpliendo este reto con dedicación 💪</p>
@@ -7,8 +7,8 @@
     </div>
 
     <button
-      @click="completeChallenge"
-      class="complete-btn"
+      @click="$emit('open-complete-challenge')"
+      class="complete-btn bg-gradient"
     >
       Completar Desafío
     </button>
@@ -16,17 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter, useRoute } from 'vue-router'
-
-const router = useRouter()
-const route = useRoute()
-
-async function completeChallenge() {
-  if (typeof route.params.id === 'string') {
-    console.debug('desafio completado')
-    router.push({ name: 'challenges' })
-  }
-}
+// Completion is handled by parent component via emit
 </script>
 
 <style scoped>

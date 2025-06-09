@@ -13,7 +13,10 @@ const challengeResponseSchema = z.object({
   type: z.nativeEnum(ChallengeType),
   completionCount: z.number(),
   userId: z.string(),
-  metadata: z.record(z.unknown()).optional()
+  metadata: z.record(z.unknown()).optional(),
+  isActive: z.boolean(),
+  lastCompletionDate: z.string().nullable(),
+  isCompleted: z.boolean()
 })
 
 export class ChallengeDAO {

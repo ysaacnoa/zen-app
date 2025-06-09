@@ -1,5 +1,5 @@
 <template>
-  <Dialog :open="true" @update:open="handleClose">
+  <Dialog :open="true">
     <DialogContent>
       <DialogHeader class="text-foreground">
         <DialogTitle>Profile</DialogTitle>
