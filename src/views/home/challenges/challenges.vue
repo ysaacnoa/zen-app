@@ -62,6 +62,8 @@ onMounted(async () => {
   }
 })
 
+// Watcher removed - store updates are handled by the store's actions
+
 async function viewChallenge(challengeId: string) {
   await router.push({name: 'challenge-detail', params:{id: challengeId}})
 }

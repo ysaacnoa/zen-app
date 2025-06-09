@@ -65,24 +65,22 @@ onMounted(async () => {
   challenge.value = challenges.find(c => c.id === route.params.id) || null
 })
 
-function goBack() {
+async function goBack() {
   router.push({ name: 'challenges' })
 }
 
-function handleCompleteChallenge(payload: unknown) {
+async function handleCompleteChallenge(payload: unknown) {
   const data = payload as object;
   if (challenge.value) {
-    console.log('Challenge completed:', {
-      type: challenge.value.type,
-      data,
-      timestamp: new Date().toISOString()
-    })
-
-    // Increment completion count for the progress animation
-    challenge.value.completionCount = Math.min(
-      challenge.value.completionCount + 1,
-      challenge.value.requiredCompletions
-    )
+    const updatedChallenge = await challengeStore.completeChallenge(challenge.value.userId, challenge.value.id, [data])
+    if (updatedChallenge) {
+      challenge.value = {
+        ...challenge.value,
+        completionCount: updatedChallenge.currentCompletions,
+        isCompleted: updatedChallenge.currentCompletions === challenge.value.requiredCompletions,
+        lastCompletionDate: updatedChallenge.completedAt
+      }
+    }
     showRewardModal.value = true
   }
 }

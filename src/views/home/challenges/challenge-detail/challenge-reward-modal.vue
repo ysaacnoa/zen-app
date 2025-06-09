@@ -73,6 +73,8 @@ interface Challenge {
   rewardXp: number
 }
 import confetti from 'canvas-confetti'
+import { useChallengeStore } from '@/modules/gamification/challenges/stores/challenge.store'
+import { useUserStore } from '@/modules/user/stores/user.store'
 
 const props = defineProps<{
   challenge: Challenge
@@ -81,6 +83,8 @@ const props = defineProps<{
 
 const emit = defineEmits(['update:open'])
 
+const challengeStore = useChallengeStore();
+const userStore = useUserStore();
 const progressPercentage = computed(() => {
   return Math.min(
     (props.challenge.completionCount / props.challenge.requiredCompletions) * 100,
@@ -94,9 +98,10 @@ function onOpenChange(open: boolean) {
 
 const router = useRouter()
 
-function onClose() {
+async function onClose() {
+  await challengeStore.fetchChallenges(userStore.profile?.id ?? '', true)
   emit('update:open', false)
-  router.push({name: 'challenges'})
+  await router.push({name: 'challenges'})
 }
 
 // Create confetti canvas outside dialog
