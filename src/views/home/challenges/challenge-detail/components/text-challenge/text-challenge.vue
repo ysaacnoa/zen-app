@@ -50,11 +50,13 @@ const { handleSubmit } = useForm({
   validationSchema: formSchema
 })
 
-const emit = defineEmits(['open-complete-challenge'])
+const emit = defineEmits<{
+  (e: 'open-complete-challenge', payload: object): void
+}>()
 
 const onSubmit = handleSubmit((values) => {
   console.log('Challenge response:', values.response)
-  emit('open-complete-challenge')
+  emit('open-complete-challenge', { answer: values.response })
   return Promise.resolve()
 })
 </script>

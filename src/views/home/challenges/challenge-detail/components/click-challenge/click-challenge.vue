@@ -7,7 +7,7 @@
     </div>
 
     <button
-      @click="$emit('open-complete-challenge')"
+      @click="handleComplete"
       class="complete-btn bg-gradient"
     >
       Completar Desafío
@@ -16,7 +16,13 @@
 </template>
 
 <script setup lang="ts">
-// Completion is handled by parent component via emit
+const emit = defineEmits<{
+  (e: 'open-complete-challenge', payload: object): void
+}>()
+
+function handleComplete() {
+  emit('open-complete-challenge', {})
+}
 </script>
 
 <style scoped>

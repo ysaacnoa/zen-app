@@ -69,8 +69,15 @@ function goBack() {
   router.push({ name: 'challenges' })
 }
 
-function handleCompleteChallenge() {
+function handleCompleteChallenge(payload: unknown) {
+  const data = payload as object;
   if (challenge.value) {
+    console.log('Challenge completed:', {
+      type: challenge.value.type,
+      data,
+      timestamp: new Date().toISOString()
+    })
+
     // Increment completion count for the progress animation
     challenge.value.completionCount = Math.min(
       challenge.value.completionCount + 1,

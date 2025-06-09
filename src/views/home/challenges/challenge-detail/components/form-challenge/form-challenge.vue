@@ -60,11 +60,21 @@ interface FormValues {
   q4: string;
 }
 
-const emit = defineEmits(['open-complete-challenge'])
+const emit = defineEmits<{
+  (e: 'open-complete-challenge', payload: object): void
+}>()
 
 const onSubmit = handleSubmit<void>((values: FormValues) => {
   console.log('Form answers:', values)
-  emit('open-complete-challenge')
+
+  const payload = {
+    answer1: values.q1,
+    answer2: values.q2,
+    answer3: values.q3,
+    answer4: values.q4
+  }
+
+  emit('open-complete-challenge', payload)
   return Promise.resolve()
 })
 </script>
