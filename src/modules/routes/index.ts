@@ -51,7 +51,7 @@ const router = createRouter({
         {
           path: 'analytics',
           name: 'analytics',
-          component: () => import('@/views/home/analytics')
+          component: () => import('@/views/home/analytics/analytics.vue')
         },
         {
           path: 'profile',
