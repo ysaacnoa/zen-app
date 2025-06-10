@@ -1,9 +1,15 @@
 <template>
-  <div class="analytics-dashboard grid gap-4 p-4">
+  <div v-if="isLoading">Loading...</div>
+  <div v-else class="analytics-dashboard grid gap-4 p-4">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
       <Card class="analytic-card">
         <CardHeader>
-          <CardTitle>✅ Completados</CardTitle>
+          <CardTitle
+            >✅
+            <span class="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent"
+              >Completados</span
+            >
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <div class="text-3xl font-bold">{{ stats?.completed || 0 }}</div>
@@ -13,7 +19,12 @@
 
       <Card class="analytic-card">
         <CardHeader>
-          <CardTitle>⏳ En progreso</CardTitle>
+          <CardTitle>
+            ⏳
+            <span class="bg-gradient-to-r from-green-500 to-teal-500 bg-clip-text text-transparent"
+              >En progreso</span
+            >
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <div class="text-3xl font-bold">{{ stats?.inProgress || 0 }}</div>
@@ -22,10 +33,58 @@
 
       <Card class="analytic-card">
         <CardHeader>
-          <CardTitle>📈 Tasa de completado</CardTitle>
+          <CardTitle
+            >📈
+            <span
+              class="bg-gradient-to-r from-yellow-500 to-orange-500 bg-clip-text text-transparent"
+              >Tasa de completado</span
+            ></CardTitle
+          >
         </CardHeader>
         <CardContent>
-          <div class="text-3xl font-bold">{{ stats?.completionRate?.toFixed(1) || 0 }}%</div>
+          <div class="text-3xl font-bold">{{ stats?.completionRate?.toFixed(2) || '0.00' }}%</div>
+        </CardContent>
+      </Card>
+
+      <Card class="analytic-card">
+        <CardHeader>
+          <CardTitle
+            >⏰
+            <span class="bg-gradient-to-r from-red-500 to-pink-500 bg-clip-text text-transparent"
+              >Pendientes</span
+            >
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div class="text-3xl font-bold">{{ stats?.pending || 0 }}</div>
+        </CardContent>
+      </Card>
+
+      <Card class="analytic-card">
+        <CardHeader>
+          <CardTitle
+            >📊
+            <span class="bg-gradient-to-r from-indigo-500 to-blue-500 bg-clip-text text-transparent"
+              >Total</span
+            >
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div class="text-3xl font-bold">{{ stats?.total || 0 }}</div>
+        </CardContent>
+      </Card>
+
+      <Card class="analytic-card">
+        <CardHeader>
+          <CardTitle
+            >🚀
+            <span class="bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent"
+              >Tasa de progreso</span
+            >
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div class="text-3xl font-bold">{{ stats?.progressRate?.toFixed(2) || '0.00' }}%</div>
         </CardContent>
       </Card>
     </div>
@@ -36,8 +95,7 @@
           <CardTitle>Completion Trends</CardTitle>
         </CardHeader>
         <CardContent>
-          <distribution-chart v-if="!isLoading" :data="distribution" />
-          <div v-else class="loading">Loading...</div>
+          <distribution-chart :data="distribution" />
         </CardContent>
       </Card>
       <Card class="analytic-card">
@@ -45,8 +103,7 @@
           <CardTitle>📊 Tipos de Challenges</CardTitle>
         </CardHeader>
         <CardContent>
-          <donnut-chart v-if="!isLoading" :data="types" />
-          <div v-else class="loading">Loading...</div>
+          <donnut-chart :data="types" />
         </CardContent>
       </Card>
       <Card class="analytic-card">
@@ -54,8 +111,7 @@
           <CardTitle>Challenge Types Count</CardTitle>
         </CardHeader>
         <CardContent>
-          <bar-chart v-if="!isLoading" :data="types ?? []" />
-          <div v-else class="loading">Loading...</div>
+          <bar-chart :data="types ?? []" />
         </CardContent>
       </Card>
     </div>
@@ -92,6 +148,7 @@ const distribution = ref<AnalyticsDistribution | null>(null);
 onMounted(async () => {
   try {
     await userStore.ensureProfile();
+    isLoading.value = true;
     const [statsData, typesData, trendsData, distributionData] = await Promise.all([
       AnalyticsDao.getStats(userStore.profile?.id ?? ''),
       AnalyticsDao.getTypes(userStore.profile?.id ?? ''),
@@ -100,10 +157,9 @@ onMounted(async () => {
     ]);
 
     stats.value = statsData;
-    if(typesData){
+    if (typesData) {
       types.value = typesData;
     }
-
 
     console.log('Stats data:', statsData);
     console.log('Types data:', typesData);
@@ -141,14 +197,6 @@ onMounted(async () => {
 .analytics-dashboard {
   max-width: 1200px;
   margin: 0 auto;
-}
-
-.loading {
-  height: 300px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #64748b;
 }
 
 .chart-container {
