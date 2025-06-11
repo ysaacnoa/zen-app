@@ -1,6 +1,6 @@
 <template>
   <div class="rewards-view">
-    <div v-if="badgeStore.loading">Loading badges...</div>
+    <LoaderBubbles v-if="badgeStore.loading" label="Loading rewards..." />
     <div v-else-if="badgeStore.error" class="error">
       {{ badgeStore.error }}
     </div>
@@ -33,6 +33,7 @@
 
 <script setup lang="ts">
 import { useBadgeStore } from '@/modules/gamification/badges/stores/badge.store'
+import LoaderBubbles from '@/components/ui/loader-bubbles.vue'
 import { onMounted } from 'vue'
 import { defineOptions } from 'vue'
 
@@ -48,6 +49,10 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.rewards-view{
+  width: 100%;
+  height: 100%;
+}
 .badges-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));

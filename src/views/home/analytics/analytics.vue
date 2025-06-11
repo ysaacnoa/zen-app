@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isLoading">Loading...</div>
+  <LoaderBubbles v-if="isLoading" label="Loading analytics..." />
   <div v-else class="analytics-dashboard grid gap-4 p-4">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
       <Card class="analytic-card">
@@ -124,6 +124,7 @@ defineOptions({
 });
 import { ref, onMounted } from 'vue';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import LoaderBubbles from '@/components/ui/loader-bubbles.vue';
 import DonnutChart from './components/donut-chart';
 import DistributionChart from './components/distribution-chart';
 import BarChart from './components/bar-chart';

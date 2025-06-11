@@ -2,7 +2,7 @@
   <div class="challenges-view">
     <router-view v-if="$route.name === 'challenge-detail'"/>
     <template v-else>
-      <div v-if="challengeStore.loading">Loading challenges...</div>
+      <LoaderBubbles v-if="challengeStore.loading" label="Loading challenges..." />
       <div v-else-if="challengeStore.error" class="error">
         {{ challengeStore.error }}
       </div>
@@ -26,6 +26,7 @@
 
 <script setup lang="ts">
 import { useChallengeStore } from '@/modules/gamification/challenges/stores/challenge.store'
+import LoaderBubbles from '@/components/ui/loader-bubbles.vue'
 import { onMounted } from 'vue'
 import { useUserStore } from '@/modules/user/stores/user.store'
 import { router } from '@/modules/routes'

@@ -1,6 +1,6 @@
 <template>
   <div class="feed-view">
-    <div v-if="userStore.loading || recommendationStore.isLoading">Loading...</div>
+    <LoaderBubbles v-if="userStore.loading || recommendationStore.isLoading" label="Loading feed..." />
     <div v-else-if="error">{{ error }}</div>
     <div v-else>
       <div
@@ -15,6 +15,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import LoaderBubbles from '@/components/ui/loader-bubbles.vue'
 import { marked } from 'marked'
 import { useUserStore } from '@/modules/user/stores/user.store'
 import { useRecommendationStore } from '@/modules/recommendation/stores/recommendation.store'
