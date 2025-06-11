@@ -7,18 +7,29 @@
     .inner-circle {
       fill: #F3E5F5;
     }
-    .shield {
+    .triangle {
       fill: #6A1B9A;
-      transform-origin: 50% 50%;
-      animation: pulse 3s ease-in-out infinite;
+      transform-origin: 64px 64px;
+      animation: split 3s ease-in-out infinite;
     }
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
+    @keyframes split {
+      0%, 100% { 
+        transform: translate(0, 0);
+        opacity: 1;
+      }
+      50% { 
+        transform: translate(var(--tx), var(--ty)) scale(1.1);
+        opacity: 0.9;
+      }
     }
   </style>
   
   <circle class="outer-circle" cx="64" cy="64" r="60"/>
   <circle class="inner-circle" cx="64" cy="64" r="50"/>
-  <path class="shield" d="M64 40l20 15v20l-20 15-20-15v-20z"/>
+  <path class="triangle" d="M64 64 L64 40 L84 55 Z" style="--tx: 0px; --ty: -15px"/>
+  <path class="triangle" d="M64 64 L84 55 L84 75 Z" style="--tx: 13px; --ty: -7.5px"/>
+  <path class="triangle" d="M64 64 L84 75 L64 90 Z" style="--tx: 13px; --ty: 7.5px"/>
+  <path class="triangle" d="M64 64 L64 90 L44 75 Z" style="--tx: 0px; --ty: 15px"/>
+  <path class="triangle" d="M64 64 L44 75 L44 55 Z" style="--tx: -13px; --ty: 7.5px"/>
+  <path class="triangle" d="M64 64 L44 55 L64 40 Z" style="--tx: -13px; --ty: -7.5px"/>
 </svg>

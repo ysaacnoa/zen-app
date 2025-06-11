@@ -7,18 +7,29 @@
     .inner-circle {
       fill: #ECEFF1;
     }
-    .zen {
-      fill: #455A64;
-      transform-origin: 50% 50%;
-      animation: breathe 5s ease-in-out infinite;
+    .zen-stone {
+      fill: #607D8B;
+      transform-origin: center;
+      animation: float 4s ease-in-out infinite;
     }
-    @keyframes breathe {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(0.95); opacity: 0.8; }
+    @keyframes float {
+      0%, 100% { 
+        transform: translate(0, 0) rotate(0deg);
+      }
+      50% { 
+        transform: translate(var(--tx), var(--ty)) rotate(5deg);
+      }
     }
   </style>
   
   <circle class="outer-circle" cx="64" cy="64" r="60"/>
   <circle class="inner-circle" cx="64" cy="64" r="50"/>
-  <path class="zen" d="M64 40a24 24 0 0 1 0 48 24 24 0 0 1 0-48zm0 8a16 16 0 0 0 0 32 16 16 0 0 0 0-32z"/>
+  <circle class="zen-circle" cx="64" cy="64" r="40"/>
+
+  <!-- 5 Zen stones with floating animation -->
+  <path class="zen-stone" d="M60 50 Q70 45 80 50 Q75 60 60 50 Z" style="--tx: -3px; --ty: -5px"/>
+  <path class="zen-stone" d="M70 70 Q80 65 85 75 Q75 80 70 70 Z" style="--tx: 4px; --ty: -2px"/>
+  <path class="zen-stone" d="M50 65 Q55 55 45 60 Q40 70 50 65 Z" style="--tx: 2px; --ty: 3px"/>
+  <path class="zen-stone" d="M60 80 Q70 85 65 95 Q55 90 60 80 Z" style="--tx: -2px; --ty: 4px"/>
+  <path class="zen-stone" d="M45 45 Q50 40 55 45 Q50 50 45 45 Z" style="--tx: -4px; --ty: -3px"/>
 </svg>
