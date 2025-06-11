@@ -82,7 +82,7 @@
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
-                <DropdownMenuItem @click="router.push({ name: 'profile' })">
+                <DropdownMenuItem @click="showProfileDialog = true">
                   <UserIcon class="mr-2 h-4 w-4" />
                   <span>Profile</span>
                 </DropdownMenuItem>
@@ -103,12 +103,15 @@
     </SidebarFooter>
     <SidebarRail />
   </Sidebar>
+
+  <UserProfileDialog v-model:open="showProfileDialog"  @close="showProfileDialog = false" />
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 const router = useRouter()
+const showProfileDialog = ref(false)
 import {
   Sidebar,
   SidebarContent,
@@ -147,6 +150,7 @@ import {
   LogOutIcon
 } from 'lucide-vue-next'
 import SidebarRail from './SidebarRail.vue'
+import UserProfileDialog from '@/views/home/profile/profile.vue'
 
 
 const {
@@ -170,6 +174,10 @@ const props = defineProps({
     type: String,
     default: ''
   }
+})
+
+onMounted(()=>{
+  console.debug('[PROPS]',props)
 })
 
 const initials = computed(() => {

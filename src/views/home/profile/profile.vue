@@ -1,5 +1,5 @@
 <template>
-  <Dialog :open="true">
+  <Dialog v-model:open="isOpen">
     <DialogContent>
       <DialogHeader class="text-foreground">
         <DialogTitle>Profile</DialogTitle>
@@ -82,7 +82,6 @@
         </div>
 
         <DialogFooter>
-          <Button  class="text-foreground" variant="outline" @click="handleClose">Cancel</Button>
           <Button class="bg-gradient" type="submit">Save</Button>
         </DialogFooter>
       </Form>
@@ -92,7 +91,6 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
 import { useUserStore } from '@/modules/user/stores/user.store'
 import { useBadgeStore } from '@/modules/gamification/badges/stores/badge.store'
 import { UserProfileSchema } from '@/modules/user/models/user-profile.schema'
@@ -104,7 +102,7 @@ import {
   DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogTitle
+  DialogTitle,
 } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
@@ -115,9 +113,11 @@ defineOptions({
   name: 'UserProfileDialog'
 })
 
-const router = useRouter()
+const emit = defineEmits(['close'])
+
 const userStore = useUserStore()
 const badgeStore = useBadgeStore()
+const isOpen = ref(true)
 
 const profile = ref<typeof UserProfileSchema._type>({
   id: '',
@@ -139,7 +139,7 @@ const form = ref({
 })
 
 onMounted(async () => {
-  await userStore.fetchProfile()
+  // await userStore.fetchProfile()
   if (userStore.profile) {
     profile.value = userStore.profile
     form.value = {
@@ -156,10 +156,6 @@ onMounted(async () => {
   }
 })
 
-function handleClose() {
-  router.back()
-}
-
 async function handleSubmit() {
   try {
     await userStore.updateProfile({
@@ -170,7 +166,7 @@ async function handleSubmit() {
       birthDate: form.value.birthDate ? `${form.value.birthDate}T00:00:00` : null,
       phoneNumber: form.value.phoneNumber || null
     })
-    handleClose()
+    emit('close')
   } catch (error) {
     console.error('Error updating profile:', error)
   }
