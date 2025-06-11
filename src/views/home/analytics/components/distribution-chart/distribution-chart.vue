@@ -57,19 +57,20 @@ const series = computed(() => {
     })
   })
 
-  return Array.from(typeMap.values())
+  const seriesData = Array.from(typeMap.values())
+  console.log('Chart series data:', seriesData)
+  return seriesData
 })
 
 const chartOptions = computed(() => ({
   chart: {
     height: 350,
     type: 'area',
-    stacked: false,
     toolbar: {
       show: true,
       tools: {
         download: false,
-        selection: false,
+        selection: true,
         zoom: true,
         zoomin: true,
         zoomout: true,
@@ -78,28 +79,27 @@ const chartOptions = computed(() => ({
       }
     }
   },
-  dataLabels: {
-    enabled: false
-  },
   stroke: {
     curve: 'smooth'
   },
   xaxis: {
     type: 'datetime',
     labels: {
+      show: true,
+      hideOverlappingLabels:false,
+      trim: false,
       format: 'dd MMM',
       style: {
         colors: 'var(--foreground)'
       }
     },
-
   },
   tooltip: {
     fillSeriesColor: true,
-    theme: isDark.value ? 'dark' : 'light',
     x: {
       format: 'dd MMM yyyy'
-    }
+    },
+    theme: isDark.value ? 'dark' : 'light'
   },
   colors: ['#008FFB', '#00E396', '#FEB019', '#FF4560', '#775DD0'],
   fill: {
@@ -112,10 +112,10 @@ const chartOptions = computed(() => ({
   },
   legend: {
     labels: {
-    colors: 'var(--foreground)'
-  }
+      colors: 'var(--foreground)'
+    }
   },
-  selection:{
+  selection: {
     fill: { color: 'var(--background)'}
   },
   yaxis: {
@@ -137,8 +137,5 @@ const chartOptions = computed(() => ({
 <style scoped>
 #chart {
   width: 100%;
-}
-#apexchartsseehkzfm{
-  width: 100% !important;
 }
 </style>

@@ -34,14 +34,16 @@
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-
-
     </header>
 
     <!-- Main Content -->
     <div class="main-content glass-dense">
       <router-view />
     </div>
+    <div class="absolute right-0 bottom-0 z-50">
+      <Toaster position="bottom-right" richColors :visibleToasts="6" :expand=true />
+    </div>
+
   </div>
 </template>
 
@@ -50,8 +52,11 @@ defineOptions({
   name: 'HomeLayoutView'
 })
 
-import { onMounted } from 'vue'
+import { onMounted, onUnmounted } from 'vue'
 import { useUserStore } from '@/modules/user/stores/user.store'
+import { useToast } from '@/composables/useToast'
+import { useSocketStore } from '@/modules/socket/socket.store'
+import { Toaster } from '@/components/ui/sonner'
 import SidebarApp from '@/components/ui/sidebar/SidebarApp.vue'
 import { SidebarProvider } from '@/components/ui/sidebar'
 import { Icon } from '@iconify/vue'
@@ -66,12 +71,20 @@ import {
 
 const userStore = useUserStore()
 const mode = useColorMode()
+const { setupToastListeners, toast } = useToast()
+const socketStore = useSocketStore()
 
 onMounted(async () => {
   // Load profile if not already loaded
   if (!userStore.profile) {
     await userStore.fetchProfile()
   }
+  setupToastListeners()
+})
+
+onUnmounted(() => {
+  toast.dismiss() // Clean up any active toasts
+  socketStore.disconnect() // Disconnect socket when component is destroyed
 })
 </script>
 

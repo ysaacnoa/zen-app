@@ -17,8 +17,6 @@ import {
   defineAsyncComponent,
   defineComponent,
   ref,
-  type ComputedRef,
-  type Ref,
 } from 'vue';
 import LandingPage from '@/views/landing';
 import BackgroundSelector from '@/components/background-selector';
@@ -50,12 +48,7 @@ export default defineComponent({
       () => import('@/modules/background/components/bg-cursor'),
     ),
   },
-  setup(): {
-    selectedBackground: Ref<BackgroundType>;
-    backgroundOptions: BackgroundType[];
-    currentBackgroundComponent: ComputedRef<BackgroundName>;
-    isAppStarted: Ref<boolean>;
-  } {
+  setup() {
     const selectedBackground = ref(BackgroundType.BUBBLES);
     const isAppStarted = ref(true); // Always show app content since routing handles it
     const backgroundOptions = Object.values(BackgroundType);
