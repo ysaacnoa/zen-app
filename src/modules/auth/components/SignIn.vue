@@ -1,5 +1,5 @@
 <template>
-  <form @submit="onSubmit" class="space-y-4 bg-white p-6 rounded-lg">
+  <form @submit="onSubmit" class="space-y-4 p-6 rounded-lg">
     <FormField v-slot="{ componentField }" name="email">
       <FormItem>
         <FormLabel class="required-field">Email</FormLabel>
@@ -75,11 +75,11 @@ const onSubmit = handleSubmit(async (values) => {
     console.log('Login successful:', response)
 
     const userStore = useUserStore()
-    await userStore.loadProfile()
+    await userStore.fetchProfile()
 
     emit('close')
     await nextTick()
-    router.push('/forms')
+    await router.push('/forms')
   } catch (error) {
     console.error('Login failed:', error)
   }
