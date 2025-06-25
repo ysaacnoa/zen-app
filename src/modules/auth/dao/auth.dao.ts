@@ -2,7 +2,7 @@ import { AuthResponseSchema, type AuthResponse } from '../models/auth-response.s
 import { ApiService } from '@/lib/api.service';
 import AuthTokenService from '@/lib/auth-token.service';
 
-const API_BASE_URL = `${import.meta.env.VITE_API_BASE_URL}/auth`;
+const API_BASE_URL = `${import.meta.env.VITE_API_BASE_URL}auth`;
 
 export class AuthDAO {
   isAuthenticated(): boolean {
