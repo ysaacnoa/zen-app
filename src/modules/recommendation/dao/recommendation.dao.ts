@@ -1,7 +1,7 @@
 import { ApiService } from '@/lib/api.service'
 import { RecommendationsResponseSchema, type RecommendationsResponse } from '../models/recommendation.model'
 
-const API_BASE_URL = `${import.meta.env.VITE_API_BASE_URL}/ia`
+const API_BASE_URL = `${import.meta.env.VITE_API_BASE_URL}ia`
 
 export class RecommendationDAO {
   private apiService: ApiService
