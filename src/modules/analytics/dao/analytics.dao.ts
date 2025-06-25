@@ -10,7 +10,7 @@ import {
 } from '../models/analytics-schemas'
 import type { AnalyticsDistribution } from '../models/analytics-distribution.model'
 
-const api = new ApiService('http://localhost:3000')
+const api = new ApiService(import.meta.env.VITE_API_BASE_URL)
 
 export class AnalyticsDao {
   async getStats(userId: string): Promise<AnalyticsStats> {

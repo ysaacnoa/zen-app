@@ -10,7 +10,7 @@ export type NotificationData = {
 };
 
 export function useSocket() {
-  const socket: Socket = io('http://localhost:3000', {
+  const socket: Socket = io(import.meta.env.VITE_API_BASE_URL, {
     transports: ['websocket'],
     reconnection: true
   });
