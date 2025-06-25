@@ -34,7 +34,7 @@ export class ChallengeDAO {
   async getChallenges(userId: string) {
     try {
       return await this.apiService.get(
-        `/challenges?userId=${userId}`,
+        `challenges?userId=${userId}`,
         z.array(challengeResponseSchema))
     } catch (error) {
       console.error('Failed to fetch challenges:', error)
@@ -45,7 +45,7 @@ export class ChallengeDAO {
   async completeChallenge(userId: string, challengeId: string, metadata: object[]) {
     try {
       return await this.apiService.post(
-        `/challenges/complete`,
+        `challenges/complete`,
         { userId, challengeId, metadata },
         challengeCompletionSchema
       );

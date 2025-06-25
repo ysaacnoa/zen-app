@@ -19,7 +19,7 @@ export class BadgeDAO {
 
   async getAllBadges() {
     try {
-      return await this.apiService.get('/badges', z.array(BadgeSchema))
+      return await this.apiService.get('badges', z.array(BadgeSchema))
     } catch (error) {
       console.error('Error fetching all badges:', error)
       throw error
@@ -28,7 +28,7 @@ export class BadgeDAO {
 
   async getUserBadges(userId: string) {
     try {
-      return await this.apiService.get(`/badges/user?userId=${userId}`, z.array(BadgeSchema))
+      return await this.apiService.get(`badges/user?userId=${userId}`, z.array(BadgeSchema))
     } catch (error) {
       console.error(`Error fetching badges for user ${userId}:`, error)
       throw error

@@ -14,19 +14,19 @@ const api = new ApiService(import.meta.env.VITE_API_BASE_URL)
 
 export class AnalyticsDao {
   async getStats(userId: string): Promise<AnalyticsStats> {
-    return api.get(`/analytics/stats?userId=${userId}`, AnalyticsStatsSchema)
+    return api.get(`analytics/stats?userId=${userId}`, AnalyticsStatsSchema)
   }
 
   async getTypes(userId: string): Promise<AnalyticsTypes> {
-    return api.get(`/analytics/types?userId=${userId}`, AnalyticsTypesSchema)
+    return api.get(`analytics/types?userId=${userId}`, AnalyticsTypesSchema)
   }
 
   async getTrends(userId: string): Promise<AnalyticsTrends> {
-    return api.get(`/analytics/trends?userId=${userId}`, AnalyticsTrendsSchema)
+    return api.get(`analytics/trends?userId=${userId}`, AnalyticsTrendsSchema)
   }
 
   async getDistribution(userId: string): Promise<AnalyticsDistribution> {
-    return api.get(`/analytics/distribution?userId=${userId}`, AnalyticsDistributionSchema)
+    return api.get(`analytics/distribution?userId=${userId}`, AnalyticsDistributionSchema)
   }
 }
 
